@@ -7,18 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8B21E63B245DFDB4008B802F /* GoftamIcon.tif in Resources */ = {isa = PBXBuildFile; fileRef = 8B21E63A245DF961008B802F /* GoftamIcon.tif */; };
+		8B21E679245E0331008B802F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B21E677245E0331008B802F /* MainMenu.xib */; };
 		8BA9129F245CC84D00C9A683 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA9129E245CC84D00C9A683 /* AppDelegate.swift */; };
 		8BA912A1245CC85000C9A683 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BA912A0245CC85000C9A683 /* Assets.xcassets */; };
-		8BA912A4245CC85000C9A683 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8BA912A2245CC85000C9A683 /* MainMenu.xib */; };
+		8BA912B1245CCA4F00C9A683 /* GoftamIMKInputController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA912B0245CCA4F00C9A683 /* GoftamIMKInputController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8B21E639245D45FA008B802F /* goftam.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = goftam.entitlements; sourceTree = "<group>"; };
+		8B21E63A245DF961008B802F /* GoftamIcon.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = GoftamIcon.tif; sourceTree = "<group>"; };
+		8B21E678245E0331008B802F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		8BA9129B245CC84D00C9A683 /* goftam.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = goftam.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BA9129E245CC84D00C9A683 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8BA912A0245CC85000C9A683 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		8BA912A3245CC85000C9A683 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		8BA912A5245CC85000C9A683 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8BA912A6245CC85000C9A683 /* goftam.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = goftam.entitlements; sourceTree = "<group>"; };
+		8BA912B0245CCA4F00C9A683 /* GoftamIMKInputController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoftamIMKInputController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,11 +55,13 @@
 		8BA9129D245CC84D00C9A683 /* goftam */ = {
 			isa = PBXGroup;
 			children = (
+				8B21E677245E0331008B802F /* MainMenu.xib */,
+				8B21E63A245DF961008B802F /* GoftamIcon.tif */,
+				8B21E639245D45FA008B802F /* goftam.entitlements */,
 				8BA9129E245CC84D00C9A683 /* AppDelegate.swift */,
+				8BA912B0245CCA4F00C9A683 /* GoftamIMKInputController.swift */,
 				8BA912A0245CC85000C9A683 /* Assets.xcassets */,
-				8BA912A2245CC85000C9A683 /* MainMenu.xib */,
 				8BA912A5245CC85000C9A683 /* Info.plist */,
-				8BA912A6245CC85000C9A683 /* goftam.entitlements */,
 			);
 			path = goftam;
 			sourceTree = "<group>";
@@ -118,8 +124,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B21E63B245DFDB4008B802F /* GoftamIcon.tif in Resources */,
 				8BA912A1245CC85000C9A683 /* Assets.xcassets in Resources */,
-				8BA912A4245CC85000C9A683 /* MainMenu.xib in Resources */,
+				8B21E679245E0331008B802F /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -130,6 +137,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8BA912B1245CCA4F00C9A683 /* GoftamIMKInputController.swift in Sources */,
 				8BA9129F245CC84D00C9A683 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -137,10 +145,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		8BA912A2245CC85000C9A683 /* MainMenu.xib */ = {
+		8B21E677245E0331008B802F /* MainMenu.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				8BA912A3245CC85000C9A683 /* Base */,
+				8B21E678245E0331008B802F /* Base */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
@@ -266,15 +274,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = goftam/goftam.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = goftam/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = bfg.goftam;
+				PRODUCT_BUNDLE_IDENTIFIER = in.gutste.inputmethod.goftam;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -284,15 +295,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = goftam/goftam.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = goftam/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = bfg.goftam;
+				PRODUCT_BUNDLE_IDENTIFIER = in.gutste.inputmethod.goftam;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;

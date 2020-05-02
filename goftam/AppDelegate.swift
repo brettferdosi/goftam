@@ -7,21 +7,22 @@
 //
 
 import Cocoa
+import InputMethodKit
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
-    @IBOutlet weak var window: NSWindow!
-
-
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        // Insert code here to initialize your application
+        NSLog("goftam: launching")
+
+        // the name of the connection seems to be chosen for us as $(PRODUCT_BUNDLE_IDENTIFIER)_Connection.
+        // Info.plist and goftam.entitlements comply with this choice.
+        let _ = IMKServer(name: Bundle.main.infoDictionary?["InputMethodConnectionName"] as? String,
+                           bundleIdentifier: Bundle.main.bundleIdentifier)
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
-        // Insert code here to tear down your application
     }
-
 
 }
 

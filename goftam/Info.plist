@@ -20,6 +20,16 @@
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>InputMethodConnectionName</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)_Connection</string>
+	<key>InputMethodServerControllerClass</key>
+	<string>$(PRODUCT_MODULE_NAME).GoftamIMKInputController</string>
+	<key>LSApplicationCategoryType</key>
+	<string>public.app-category.utilities</string>
+	<key>LSBackgroundOnly</key>
+	<true/>
+	<key>LSHasLocalizedDisplayName</key>
+	<false/>
 	<key>LSMinimumSystemVersion</key>
 	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
 	<key>NSHumanReadableCopyright</key>
@@ -28,9 +38,17 @@
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
-	<key>NSSupportsAutomaticTermination</key>
-	<true/>
 	<key>NSSupportsSuddenTermination</key>
 	<true/>
+	<key>TISInputSourceID</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>TISIntendedLanguage</key>
+	<string>fa</string>
+	<key>tsInputMethodCharacterRepertoireKey</key>
+	<array>
+		<string>fa</string>
+	</array>
+	<key>tsInputMethodIconFileKey</key>
+	<string>GoftamIcon.tif</string>
 </dict>
 </plist>
