@@ -76,6 +76,7 @@
 				8BA91297245CC84D00C9A683 /* Sources */,
 				8BA91298245CC84D00C9A683 /* Frameworks */,
 				8BA91299245CC84D00C9A683 /* Resources */,
+				8B4AFF7C245E41A00031303B /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -131,6 +132,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		8B4AFF7C245E41A00031303B /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\necho \"Moving Input Method Kit app to Input Methods directory.\"\nkillall ${EXECUTABLE_NAME}\ncp -R \"${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}\" \"${HOME}/Library/Input Methods\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8BA91297245CC84D00C9A683 /* Sources */ = {
