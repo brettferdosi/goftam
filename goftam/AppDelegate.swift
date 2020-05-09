@@ -9,19 +9,44 @@
 import Cocoa
 import InputMethodKit
 
+// global scope
+
+// only need one candidates window for the entire input method because
+// only one such window should be visible at a time
+var candidatesWindow : IMKCandidates = IMKCandidates()
+var bypassTransliteration: Bool = false // bypass toggle
+
+func goftamLog(_ format: String, caller: String = #function, args: CVarArg...) {
+    NSLog("goftam: \(caller) " + format, args)
+}
+
+// app delegate
+
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        NSLog("goftam: launching")
+        goftamLog("")
 
-        // the name of the connection seems to be chosen for us as $(PRODUCT_BUNDLE_IDENTIFIER)_Connection.
-        // Info.plist and goftam.entitlements comply with this choice.
-        let _ = IMKServer(name: Bundle.main.infoDictionary?["InputMethodConnectionName"] as? String,
-                           bundleIdentifier: Bundle.main.bundleIdentifier)
+        // no matter what Info.plist and goftam.entitlements say, the connection name
+        // requested from the sandbox seems to be $(PRODUCT_BUNDLE_IDENTIFIER)_Connection,
+        // so Info.plist and goftam.entitlements have been set to comply with this choice
+        let server = IMKServer(name: Bundle.main.infoDictionary?["InputMethodConnectionName"] as? String,
+                               bundleIdentifier: Bundle.main.bundleIdentifier)
+
+        // use row-stepping panel type because scrolling to the bottom
+        // of the scrolling panel puts selection numbers out of alignment
+        candidatesWindow = IMKCandidates(server: server,
+                                         // panelType: kIMKSingleColumnScrollingCandidatePanel)
+                                         panelType: kIMKSingleRowSteppingCandidatePanel)
+
+        // as of 10.15.3, default candidates window key event handling is buggy
+        // (number selector keys don't work). workaround involves bypassing default window handling.
+        candidatesWindow.setAttributes([IMKCandidatesSendServerKeyEventFirst : NSNumber(booleanLiteral: true)])
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
+        goftamLog("")
     }
 
 }
