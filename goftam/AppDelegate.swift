@@ -14,7 +14,6 @@ import InputMethodKit
 // only need one candidates window for the entire input method because
 // only one such window should be visible at a time
 var candidatesWindow : IMKCandidates = IMKCandidates()
-var bypassTransliteration: Bool = false // bypass toggle
 
 func goftamLog(_ format: String, caller: String = #function, args: CVarArg...) {
     NSLog("goftam: \(caller) " + format, args)

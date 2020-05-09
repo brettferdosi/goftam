@@ -188,27 +188,10 @@ class GoftamIMKInputController: IMKInputController {
         }
         let char = event.characters!.first!
 
-        // process special commands
+        // command combinations don't modify transliteration
+        // state and should always be passed to the client
 
         if event.modifierFlags.contains(NSEvent.ModifierFlags.command) {
-            // command-escape toggles bypass; commit in-progress composition
-            if char == toChar(GoftamIMKInputController.escapeCharacter) {
-                if self._originalString.count > 0 {
-                    commitComposition(sender)
-                }
-                bypassTransliteration = !bypassTransliteration
-                goftamLog("transliteration bypass set to \(bypassTransliteration)")
-                return true
-            }
-
-            // other command combinations don't modify transliteration
-            // state and should always be passed to the client
-            return false
-        }
-
-        // transliteration bypass
-
-        if (bypassTransliteration) {
             return false
         }
 
