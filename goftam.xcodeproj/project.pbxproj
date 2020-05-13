@@ -9,26 +9,26 @@
 /* Begin PBXBuildFile section */
 		8B21E63B245DFDB4008B802F /* GoftamIcon.tif in Resources */ = {isa = PBXBuildFile; fileRef = 8B21E63A245DF961008B802F /* GoftamIcon.tif */; };
 		8B21E679245E0331008B802F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B21E677245E0331008B802F /* MainMenu.xib */; };
-		8B29B255246663EA00A051AE /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 8B29B253246663EA00A051AE /* LICENSE */; };
-		8B29B256246663EA00A051AE /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 8B29B254246663EA00A051AE /* README.md */; };
+		8B29B25824670A2000A051AE /* GoftamTransliterationEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B29B25724670A2000A051AE /* GoftamTransliterationEngine.swift */; };
+		8B49FC4C2469FDB700B08771 /* GoftamTransliterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B49FC4B2469FDB700B08771 /* GoftamTransliterator.swift */; };
 		8BA9129F245CC84D00C9A683 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA9129E245CC84D00C9A683 /* AppDelegate.swift */; };
 		8BA912A1245CC85000C9A683 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BA912A0245CC85000C9A683 /* Assets.xcassets */; };
 		8BA912B1245CCA4F00C9A683 /* GoftamIMKInputController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA912B0245CCA4F00C9A683 /* GoftamIMKInputController.swift */; };
-		8BBBB08C2463C76F00C1C1FF /* GoftamPersianTransliterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BBBB08B2463C76F00C1C1FF /* GoftamPersianTransliterator.swift */; };
+		8BBBB08C2463C76F00C1C1FF /* PersianGoftamTransliterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BBBB08B2463C76F00C1C1FF /* PersianGoftamTransliterator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		8B21E639245D45FA008B802F /* goftam.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = goftam.entitlements; sourceTree = "<group>"; };
 		8B21E63A245DF961008B802F /* GoftamIcon.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = GoftamIcon.tif; sourceTree = "<group>"; };
 		8B21E678245E0331008B802F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		8B29B253246663EA00A051AE /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = SOURCE_ROOT; };
-		8B29B254246663EA00A051AE /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
+		8B29B25724670A2000A051AE /* GoftamTransliterationEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoftamTransliterationEngine.swift; sourceTree = "<group>"; };
+		8B49FC4B2469FDB700B08771 /* GoftamTransliterator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoftamTransliterator.swift; sourceTree = "<group>"; };
 		8BA9129B245CC84D00C9A683 /* goftam.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = goftam.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BA9129E245CC84D00C9A683 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8BA912A0245CC85000C9A683 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8BA912A5245CC85000C9A683 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8BA912B0245CCA4F00C9A683 /* GoftamIMKInputController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoftamIMKInputController.swift; sourceTree = "<group>"; };
-		8BBBB08B2463C76F00C1C1FF /* GoftamPersianTransliterator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoftamPersianTransliterator.swift; sourceTree = "<group>"; };
+		8BBBB08B2463C76F00C1C1FF /* PersianGoftamTransliterator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersianGoftamTransliterator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,9 +66,9 @@
 				8B21E639245D45FA008B802F /* goftam.entitlements */,
 				8BA9129E245CC84D00C9A683 /* AppDelegate.swift */,
 				8BA912B0245CCA4F00C9A683 /* GoftamIMKInputController.swift */,
-				8B29B253246663EA00A051AE /* LICENSE */,
-				8B29B254246663EA00A051AE /* README.md */,
-				8BBBB08B2463C76F00C1C1FF /* GoftamPersianTransliterator.swift */,
+				8B49FC4B2469FDB700B08771 /* GoftamTransliterator.swift */,
+				8BBBB08B2463C76F00C1C1FF /* PersianGoftamTransliterator.swift */,
+				8B29B25724670A2000A051AE /* GoftamTransliterationEngine.swift */,
 				8BA912A0245CC85000C9A683 /* Assets.xcassets */,
 				8BA912A5245CC85000C9A683 /* Info.plist */,
 			);
@@ -136,8 +136,6 @@
 			files = (
 				8B21E63B245DFDB4008B802F /* GoftamIcon.tif in Resources */,
 				8BA912A1245CC85000C9A683 /* Assets.xcassets in Resources */,
-				8B29B256246663EA00A051AE /* README.md in Resources */,
-				8B29B255246663EA00A051AE /* LICENSE in Resources */,
 				8B21E679245E0331008B802F /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -170,8 +168,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				8BA912B1245CCA4F00C9A683 /* GoftamIMKInputController.swift in Sources */,
+				8B49FC4C2469FDB700B08771 /* GoftamTransliterator.swift in Sources */,
+				8B29B25824670A2000A051AE /* GoftamTransliterationEngine.swift in Sources */,
 				8BA9129F245CC84D00C9A683 /* AppDelegate.swift in Sources */,
-				8BBBB08C2463C76F00C1C1FF /* GoftamPersianTransliterator.swift in Sources */,
+				8BBBB08C2463C76F00C1C1FF /* PersianGoftamTransliterator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

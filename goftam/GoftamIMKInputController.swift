@@ -12,12 +12,12 @@ class GoftamIMKInputController: IMKInputController {
 
     // fields and constructor
 
-    static let escapeCharacter : Int = 0x1b
-    static let digitChars : Set<Character> = ["0", "1", "2" ,"3", "4", "5", "6", "7", "8", "9"]
+    static let escapeCharacter: Int = 0x1b // int corresponding to Unicode value of escape
+    static let digitChars: Set<Character> = ["0", "1", "2" ,"3", "4", "5", "6", "7", "8", "9"]
 
-    var _originalString : String = "" // what the user typed
-    var _composedString : String = "" // the user's current result choice
-    var _candidates : [String] = [] // list of candidates to choose from
+    var _originalString: String = "" // what the user typed
+    var _composedString: String = "" // the user's current result choice
+    var _candidates: [String] = [] // list of candidates to choose from
 
     // called once per client the first time it gets focus
     override init!(server: IMKServer!, delegate: Any!, client inputClient: Any!) {
@@ -108,7 +108,6 @@ class GoftamIMKInputController: IMKInputController {
         self._candidates = []
 
         candidatesWindow.hide()
-        //candidatesWindow.update()
     }
 
     // update mark/candidates for the current transliteration
@@ -117,7 +116,7 @@ class GoftamIMKInputController: IMKInputController {
 
         writeMarkToClient(downcastSender(self.client()), _originalString)
 
-        self._candidates = GoftamPersianTranlisterator.generateCandidates(_originalString)
+        self._candidates = goftamTransliterator.generateCandidates(_originalString)
 
         self._composedString = _candidates[0]
 
@@ -157,6 +156,7 @@ class GoftamIMKInputController: IMKInputController {
         goftamLog("selection \(String(describing: candidateString))")
         self._composedString = candidateString.string
         commitComposition(self.client())
+        writeTextToClient(downcastSender(self.client()), " ")
     }
 
     // input from client
@@ -164,8 +164,8 @@ class GoftamIMKInputController: IMKInputController {
     // indicate that we support handling more than keypresses - not needed so far
 //    override func recognizedEvents(_ sender: Any!) -> Int {
 //        goftamLog("")
-//        //let events : NSEvent.EventTypeMask = [.any]
-//        let events : NSEvent.EventTypeMask = [.keyDown, .flagsChanged, .leftMouseDown, .rightMouseDown, .otherMouseDown]
+//        //let events: NSEvent.EventTypeMask = [.any]
+//        let events: NSEvent.EventTypeMask = [.keyDown, .flagsChanged, .leftMouseDown, .rightMouseDown, .otherMouseDown]
 //        return Int(truncatingIfNeeded: events.rawValue)
 //    }
 
@@ -188,16 +188,10 @@ class GoftamIMKInputController: IMKInputController {
         }
         let char = event.characters!.first!
 
-        // command combinations don't modify transliteration
-        // state and should always be passed to the client
-
-        if event.modifierFlags.contains(NSEvent.ModifierFlags.command) {
-            return false
-        }
-
         // if the candidates window is open there is a composition in progress
 
         if candidatesWindow.isVisible() {
+
             // send relevant keys to the candidates window
             if char == toChar(NSCarriageReturnCharacter) ||
                char == toChar(NSUpArrowFunctionKey) ||
@@ -205,6 +199,7 @@ class GoftamIMKInputController: IMKInputController {
                char == toChar(NSRightArrowFunctionKey) ||
                char == toChar(NSLeftArrowFunctionKey) ||
                GoftamIMKInputController.digitChars.contains(char) {
+                //candidatesWindow.interpretKeyEvents([event])
                 // use this private function to workaround buggy candidates
                 // window as of 10.15.3
                 candidatesWindow.perform(Selector(("handleKeyboardEvent:")), with: event)
@@ -227,15 +222,15 @@ class GoftamIMKInputController: IMKInputController {
         // is not handled by the candidates window
 
         // a recognized character either starts or continues the composition
-        if (GoftamPersianTranlisterator.recognizedCharacters.contains(char)) {
+        if (goftamTransliterator.recognizedCharacters().contains(char)) {
             self._originalString.append(char)
             updateComposition()
             return true
 
         // recognized digits are translated immediately (there is guaranteed
         // not to be an active composition in this case)
-        } else if (GoftamPersianTranlisterator.digitMap.keys.contains(char)) {
-            writeTextToClient(sender, String(GoftamPersianTranlisterator.digitMap[char]!))
+        } else if (goftamTransliterator.digitMap().keys.contains(char)) {
+            writeTextToClient(sender, String(goftamTransliterator.digitMap()[char]!))
             return true
 
         // keys that are not recognized specifically cause an in-progress

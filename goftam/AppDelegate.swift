@@ -13,7 +13,8 @@ import InputMethodKit
 
 // only need one candidates window for the entire input method because
 // only one such window should be visible at a time
-var candidatesWindow : IMKCandidates = IMKCandidates()
+var candidatesWindow: IMKCandidates = IMKCandidates()
+var goftamTransliterator: GoftamTransliterator = PersianGoftamTransliterator()
 
 func goftamLog(_ format: String, caller: String = #function, args: CVarArg...) {
     NSLog("goftam: \(caller) " + format, args)
@@ -33,11 +34,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let server = IMKServer(name: Bundle.main.infoDictionary?["InputMethodConnectionName"] as? String,
                                bundleIdentifier: Bundle.main.bundleIdentifier)
 
-        // use row-stepping panel type because scrolling to the bottom
-        // of the scrolling panel puts selection numbers out of alignment
+        // scrolling to the bottom of the scrolling panel puts selection numbers out of alignment
         candidatesWindow = IMKCandidates(server: server,
-                                         // panelType: kIMKSingleColumnScrollingCandidatePanel)
-                                         panelType: kIMKSingleRowSteppingCandidatePanel)
+                                         panelType: kIMKSingleColumnScrollingCandidatePanel)
+                                         //panelType: kIMKSingleRowSteppingCandidatePanel)
 
         // as of 10.15.3, default candidates window key event handling is buggy
         // (number selector keys don't work). workaround involves bypassing default window handling.
