@@ -40,8 +40,8 @@ class PersianGoftamTransliterator: GoftamTransliterator {
         GoftamTransliterationRule([.beginning, .middle, .end], "kh", "خ"),
         GoftamTransliterationRule([.beginning, .middle, .end], "zh", "ژ"),
         GoftamTransliterationRule([.beginning, .middle, .end], "sh", "ش"),
-        GoftamTransliterationRule([.beginning, .middle, .end], "gh", "غ"),
         GoftamTransliterationRule([.beginning, .middle, .end], "gh", "ق"),
+        GoftamTransliterationRule([.beginning, .middle, .end], "gh", "غ"),
         GoftamTransliterationRule([.beginning], "oo", "او"),
         GoftamTransliterationRule([.middle, .end], "oo", "و"),
         GoftamTransliterationRule([.end], "an", "اً"), // maybe move to end
@@ -64,8 +64,8 @@ class PersianGoftamTransliterator: GoftamTransliterator {
         GoftamTransliterationRule([.beginning, .middle, .end], "f", "ف"),
         GoftamTransliterationRule([.beginning, .middle, .end], "g", "گ"),
 
-        GoftamTransliterationRule([.beginning, .middle, .end], "h", "ح"),
         GoftamTransliterationRule([.beginning, .middle, .end], "h", "ه"),
+        GoftamTransliterationRule([.beginning, .middle, .end], "h", "ح"),
 
         GoftamTransliterationRule([.beginning], "i", "ای"),
         GoftamTransliterationRule([.middle, .end], "i", "ی"),
@@ -124,17 +124,8 @@ class PersianGoftamTransliterator: GoftamTransliterator {
         return self._digitMap
     }
 
-    // maybe create set then go to list so no duplicates? but maybe order matters
     func generateCandidates(_ input: String) -> [String] {
-        var candidates = self._transliterator.transliterate(input.lowercased())
-        // ensure that the typed text appears on the first page of the
-        // scrolling view (TODO possibly replace with shift-space bypass)
-        if (candidates.count > 8) {
-            candidates.insert(input, at: 8)
-        } else {
-            candidates.append(input)
-        }
-        return candidates
+        return self._transliterator.transliterate(input.lowercased())
     }
 
 }

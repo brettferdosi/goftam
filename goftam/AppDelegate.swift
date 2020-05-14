@@ -15,6 +15,12 @@ import InputMethodKit
 // only one such window should be visible at a time
 var candidatesWindow: IMKCandidates = IMKCandidates()
 var goftamTransliterator: GoftamTransliterator = PersianGoftamTransliterator()
+var bypassTransliteration: Bool = false // global option to bypass transliteration
+
+func toggleBypass() {
+    goftamLog("setting bypass from \(bypassTransliteration) to \(!bypassTransliteration)")
+    bypassTransliteration = !bypassTransliteration
+}
 
 func goftamLog(_ format: String, caller: String = #function, args: CVarArg...) {
     NSLog("goftam: \(caller) " + format, args)

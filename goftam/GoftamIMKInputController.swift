@@ -13,10 +13,11 @@ class GoftamIMKInputController: IMKInputController {
     // fields and constructor
 
     static let escapeCharacter: Int = 0x1b // int corresponding to Unicode value of escape
+    static let ZWNJCharacter: Int = 0x200c // int correspoding to Unicode value of ZWNJ
     static let digitChars: Set<Character> = ["0", "1", "2" ,"3", "4", "5", "6", "7", "8", "9"]
 
     var _originalString: String = "" // what the user typed
-    var _composedString: String = "" // the user's current result choice
+    var _composedString: String = "" // currently selected transliteration candidate
     var _candidates: [String] = [] // list of candidates to choose from
 
     // called once per client the first time it gets focus
@@ -188,8 +189,26 @@ class GoftamIMKInputController: IMKInputController {
         }
         let char = event.characters!.first!
 
-        // if the candidates window is open there is a composition in progress
+        // shift-command-space toggles transliteration bypass
+        if ((char == " ") && event.modifierFlags.contains([.shift, .command])) {
+            toggleBypass()
+            return true
+        }
 
+        if (bypassTransliteration) {
+            return false
+        }
+
+        // shift-space maps to ZWNJ for all languages; ends in-progress composition
+        if ((char == " ") && event.modifierFlags.contains(.shift)) {
+            if self._originalString.count > 0 {
+                commitComposition(sender)
+            }
+            writeTextToClient(sender, String(toChar(GoftamIMKInputController.ZWNJCharacter)))
+            return true
+        }
+
+        // if the candidates window is open there is a composition in progress
         if candidatesWindow.isVisible() {
 
             // send relevant keys to the candidates window
