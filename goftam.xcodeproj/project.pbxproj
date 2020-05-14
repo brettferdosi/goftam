@@ -158,7 +158,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\necho \"Moving Input Method Kit app to Input Methods directory.\"\nkillall ${EXECUTABLE_NAME}\ncp -R \"${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}\" \"${HOME}/Library/Input Methods\"\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\necho \"Moving Input Method Kit app to Input Methods directory.\"\nkillall -9 ${EXECUTABLE_NAME}\ncp -R \"${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}\" \"${HOME}/Library/Input Methods\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

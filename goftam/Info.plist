@@ -46,7 +46,8 @@
 	<string>fa</string>
 	<key>tsInputMethodCharacterRepertoireKey</key>
 	<array>
-		<string>fa</string>
+		<string>Latn</string>
+		<string>fa-Arab</string>
 	</array>
 	<key>tsInputMethodIconFileKey</key>
 	<string>GoftamIcon.tif</string>
