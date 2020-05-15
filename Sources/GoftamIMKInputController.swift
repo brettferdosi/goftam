@@ -26,14 +26,12 @@ class GoftamIMKInputController: IMKInputController {
         super.init(server: server, delegate: delegate, client: inputClient)
     }
 
-    // handle client gaining and losing focus
+    // handle system events
 
     // called when the client loses focus
     override func deactivateServer(_ sender: Any!) {
         goftamLog("client \(String(describing: sender))")
-        if self._composedString.count > 0 {
-            commitComposition(sender)
-        }
+        commitComposition(sender)
     }
 
     // called when the client gains focus
@@ -46,6 +44,18 @@ class GoftamIMKInputController: IMKInputController {
         // set the candidates window to use the same keyboard layout.
         let lastASCIIlayout = TISCopyCurrentASCIICapableKeyboardLayoutInputSource().takeRetainedValue()
         candidatesWindow.setSelectionKeysKeylayout(lastASCIIlayout)
+    }
+
+    // called when an input mode is selected
+    override func setValue(_ value: Any!, forTag tag: Int, client sender: Any!) {
+        goftamLog("value \(String(describing: value)) tag \(tag)")
+        if tag == kTextServiceInputModePropertyTag {
+            commitComposition(sender)
+            selectTransliterator(value as! String)
+        } else {
+            goftamLog("unhandled tag \(tag)")
+            super.setValue(value, forTag: tag, client: sender)
+        }
     }
 
     // getters
@@ -191,7 +201,7 @@ class GoftamIMKInputController: IMKInputController {
 
         // shift-command-space toggles transliteration bypass
         if ((char == " ") && event.modifierFlags.contains([.shift, .command])) {
-            toggleBypass()
+            toggleBypass(sender)
             return true
         }
 
@@ -201,9 +211,7 @@ class GoftamIMKInputController: IMKInputController {
 
         // shift-space maps to ZWNJ for all languages; ends in-progress composition
         if ((char == " ") && event.modifierFlags.contains(.shift)) {
-            if self._originalString.count > 0 {
-                commitComposition(sender)
-            }
+            commitComposition(sender)
             writeTextToClient(sender, String(toChar(GoftamIMKInputController.ZWNJCharacter)))
             return true
         }
@@ -257,9 +265,7 @@ class GoftamIMKInputController: IMKInputController {
         // event processing chain. this writes them to the client directly
         //or performs their corresponding actions.
         } else {
-            if self._originalString.count > 0 {
-                commitComposition(sender)
-            }
+            commitComposition(sender)
             return false
         }
     }

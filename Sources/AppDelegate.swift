@@ -14,12 +14,46 @@ import InputMethodKit
 // only need one candidates window for the entire input method because
 // only one such window should be visible at a time
 var candidatesWindow: IMKCandidates = IMKCandidates()
-var goftamTransliterator: GoftamTransliterator = PersianGoftamTransliterator()
-var bypassTransliteration: Bool = false // global option to bypass transliteration
 
-func toggleBypass() {
-    goftamLog("setting bypass from \(bypassTransliteration) to \(!bypassTransliteration)")
-    bypassTransliteration = !bypassTransliteration
+// the transliterator to use and whether or not to
+// bypass it are global options, even though changes
+// are made from particular GoftamIMKInputController objects
+var goftamTransliterator: GoftamTransliterator = PersianGoftamTransliterator()
+// identifier for the transliterator's input mode, from Info.plist
+var goftamTransliteratorName: String = "goftampersian"
+var bypassTransliteration: Bool = false
+
+// :selectMode() will call GoftamIMKInputController:setValue(),
+// which in turn will call selectTransliterator() below and
+// change the bypass boolean appropraitely. if either the bypass
+// input mode or the main language input modes are not loaded,
+// this design will fail gracefully because :selectMode() will not
+// cause :setValue() to be called.
+func toggleBypass(_ client: (IMKTextInput & IMKUnicodeTextInput)) {
+    if (bypassTransliteration) {
+        // switch to the non-bypassed version of the current input mode
+        client.selectMode(goftamTransliteratorName)
+    } else {
+        // switch to the bypass input mode
+        client.selectMode("goftambypass")
+    }
+}
+
+// select the transliterator to use (or enable bypass mode) by
+// its input mode name (from ComponentInputModeDict in Info.plist)
+func selectTransliterator(_ mode: String) {
+    goftamLog("mode \(mode)")
+    switch mode {
+    case "goftambypass":
+        bypassTransliteration = true
+    case "goftampersian":
+        bypassTransliteration = false
+        goftamTransliterator = PersianGoftamTransliterator()
+        goftamTransliteratorName = "goftampersian"
+    default:
+        goftamLog("invalid transliterator selected")
+        abort()
+    }
 }
 
 func goftamLog(_ format: String, caller: String = #function, args: CVarArg...) {

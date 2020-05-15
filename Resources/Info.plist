@@ -43,13 +43,58 @@
 	<key>TISInputSourceID</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>TISIntendedLanguage</key>
-	<string>fa</string>
+	<string>en</string>
+	<key>tsInputMethodIconFileKey</key>
+	<string>GoftamIcon.tif</string>
+	<key>ComponentInputModeDict</key>
+	<dict>
+		<key>tsInputModeListKey</key>
+		<dict>
+			<key>goftampersian</key>
+			<dict>
+				<key>TISIntendedLanguage</key>
+				<string>fa</string>
+				<key>TISInputSourceID</key>
+				<string>$(PRODUCT_BUNDLE_IDENTIFIER).persian</string>
+				<key>tsInputModeScriptKey</key>
+				<string>smArabic</string>
+				<key>tsInputModeMenuIconFileKey</key>
+				<string>GoftamIcon.tif</string>
+				<key>tsInputModeAlternateMenuIconFileKey</key>
+				<string>GoftamIcon.tif</string>
+				<key>tsInputModeDefaultStateKey</key>
+				<true/>
+				<key>tsInputModeIsVisibleKey</key>
+				<true/>
+			</dict>
+			<key>goftambypass</key>
+			<dict>
+				<key>TISIntendedLanguage</key>
+				<string>en</string>
+				<key>TISInputSourceID</key>
+				<string>$(PRODUCT_BUNDLE_IDENTIFIER).bypass</string>
+				<key>tsInputModeScriptKey</key>
+				<string>smRoman</string>
+				<key>tsInputModeMenuIconFileKey</key>
+				<string>GoftamBypassIcon.tif</string>
+				<key>tsInputModeAlternateMenuIconFileKey</key>
+				<string>GoftamBypassIcon.tif</string>
+				<key>tsInputModeDefaultStateKey</key>
+				<true/>
+				<key>tsInputModeIsVisibleKey</key>
+				<true/>
+			</dict>
+		</dict>
+		<key>tsVisibleInputModeOrderedArrayKey</key>
+		<array>
+			<string>goftampersian</string>
+			<string>goftambypass</string>
+		</array>
+	</dict>
 	<key>tsInputMethodCharacterRepertoireKey</key>
 	<array>
 		<string>Latn</string>
 		<string>fa-Arab</string>
 	</array>
-	<key>tsInputMethodIconFileKey</key>
-	<string>GoftamIcon.tif</string>
 </dict>
 </plist>
