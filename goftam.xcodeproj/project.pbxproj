@@ -18,6 +18,7 @@
 		8BA912B1245CCA4F00C9A683 /* GoftamIMKInputController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA912B0245CCA4F00C9A683 /* GoftamIMKInputController.swift */; };
 		8BB14F44246D9E8800D0F6B6 /* GoftamBypassIcon.tif in Resources */ = {isa = PBXBuildFile; fileRef = 8BB14F43246D9E8800D0F6B6 /* GoftamBypassIcon.tif */; };
 		8BBBB08C2463C76F00C1C1FF /* PersianGoftamTransliterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BBBB08B2463C76F00C1C1FF /* PersianGoftamTransliterator.swift */; };
+		8BC92BD7246F345B00D171C4 /* goftam.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 8BC92BD6246F345B00D171C4 /* goftam.sqlite */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 		8BA912B0245CCA4F00C9A683 /* GoftamIMKInputController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoftamIMKInputController.swift; sourceTree = "<group>"; };
 		8BB14F43246D9E8800D0F6B6 /* GoftamBypassIcon.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = GoftamBypassIcon.tif; sourceTree = "<group>"; };
 		8BBBB08B2463C76F00C1C1FF /* PersianGoftamTransliterator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersianGoftamTransliterator.swift; sourceTree = "<group>"; };
+		8BC92BD6246F345B00D171C4 /* goftam.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = goftam.sqlite; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +53,7 @@
 		8B523E77246DB82800B4A04C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				8BC92BD6246F345B00D171C4 /* goftam.sqlite */,
 				8B21E639245D45FA008B802F /* goftam.entitlements */,
 				8B523E7E246DB93B00B4A04C /* Info.plist */,
 				8B523E78246DB8DB00B4A04C /* Base.lproj */,
@@ -156,6 +159,7 @@
 				8BA912A1245CC85000C9A683 /* Assets.xcassets in Resources */,
 				8B523E79246DB8DB00B4A04C /* Base.lproj in Resources */,
 				8BB14F44246D9E8800D0F6B6 /* GoftamBypassIcon.tif in Resources */,
+				8BC92BD7246F345B00D171C4 /* goftam.sqlite in Resources */,
 				8B523E7C246DB90200B4A04C /* LICENSE in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
