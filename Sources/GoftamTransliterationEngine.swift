@@ -20,7 +20,9 @@ struct GoftamTransliterationRuleType: OptionSet {
 
 }
 
-// a transliteration rule
+// a transliteration rule that replaces input characters with
+// output characters and is only context-sensitive to whether it
+// is applied at the beginning middle or end of the word
 struct GoftamTransliterationRule {
 
     var _type: GoftamTransliterationRuleType // where does the rule apply
@@ -36,7 +38,8 @@ struct GoftamTransliterationRule {
 }
 
 // engine that builds a state machine based on transliteration rules
-// and then can process input to give all possible transliterations
+// (which consume matching input characters as they are applied) and then can
+// process input strings to give all possible rule-based transliterations
 class GoftamTransliterationEngine {
 
     // trick to have an ordered list with no duplicates because

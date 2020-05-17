@@ -33,6 +33,8 @@ class PersianGoftamTransliterator: GoftamTransliterator {
     private let _rules: [GoftamTransliterationRule] = [
         GoftamTransliterationRule([.beginning, .middle, .end], "khaa", "خوا"),
         GoftamTransliterationRule([.beginning, .middle, .end], "kha", "خوا"),
+        GoftamTransliterationRule([.beginning, .middle, .end], "xaa", "خوا"),
+        GoftamTransliterationRule([.beginning, .middle, .end], "xa", "خوا"),
 
         GoftamTransliterationRule([.beginning], "aa", "آ"),
         GoftamTransliterationRule([.middle, .end], "aa", "ا"),
@@ -44,7 +46,8 @@ class PersianGoftamTransliterator: GoftamTransliterator {
         GoftamTransliterationRule([.beginning, .middle, .end], "gh", "غ"),
         GoftamTransliterationRule([.beginning], "oo", "او"),
         GoftamTransliterationRule([.middle, .end], "oo", "و"),
-        GoftamTransliterationRule([.end], "an", "اً"), // maybe move to end
+        GoftamTransliterationRule([.end], "an", "اً"),
+        GoftamTransliterationRule([.end], "ye", "ی"),
 
         GoftamTransliterationRule([.beginning], "a", "ا"),
         GoftamTransliterationRule([.middle, .end], "a", ""),
@@ -78,7 +81,7 @@ class PersianGoftamTransliterator: GoftamTransliterator {
         GoftamTransliterationRule([.beginning], "o", "ا"),
         GoftamTransliterationRule([.middle, .end], "o", ""),
         //GoftamTransliterationRule([.beginning], "o", "او"), // ? maybe remove
-        GoftamTransliterationRule([.middle], "o", "و"), // ? maybe remove or expand
+        GoftamTransliterationRule([.middle, .end], "o", "و"), // ? maybe remove or expand
         GoftamTransliterationRule([.beginning], "o", "ع"), // ? maybe remove, maybe beginning and middle
 
         GoftamTransliterationRule([.beginning, .middle, .end], "p", "پ"),
@@ -112,6 +115,9 @@ class PersianGoftamTransliterator: GoftamTransliterator {
 
     private let _transliterator: GoftamTransliterationEngine
 
+    //input mode name (from ComponentInputModeDict in Info.plist)
+    static var transliteratorName: String = "goftampersian"
+
     init() {
         self._transliterator = GoftamTransliterationEngine(self._rules)
     }
@@ -125,7 +131,13 @@ class PersianGoftamTransliterator: GoftamTransliterator {
     }
 
     func generateCandidates(_ input: String) -> [String] {
-        return self._transliterator.transliterate(input.lowercased())
+        return wordStore.reorder(self._transliterator.transliterate(input.lowercased()),
+                                 usingTable: PersianGoftamTransliterator.transliteratorName)
+    }
+
+    func wordSelected(word: String) {
+        wordStore.incrementTimesSelected(word,
+                                         usingTable: PersianGoftamTransliterator.transliteratorName)
     }
 
 }

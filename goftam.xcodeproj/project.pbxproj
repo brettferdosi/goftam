@@ -18,6 +18,7 @@
 		8BA912B1245CCA4F00C9A683 /* GoftamIMKInputController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA912B0245CCA4F00C9A683 /* GoftamIMKInputController.swift */; };
 		8BB14F44246D9E8800D0F6B6 /* GoftamBypassIcon.tif in Resources */ = {isa = PBXBuildFile; fileRef = 8BB14F43246D9E8800D0F6B6 /* GoftamBypassIcon.tif */; };
 		8BBBB08C2463C76F00C1C1FF /* PersianGoftamTransliterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BBBB08B2463C76F00C1C1FF /* PersianGoftamTransliterator.swift */; };
+		8BC92BD5246F273500D171C4 /* GoftamWordStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC92BD4246F273500D171C4 /* GoftamWordStore.swift */; };
 		8BC92BD7246F345B00D171C4 /* goftam.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 8BC92BD6246F345B00D171C4 /* goftam.sqlite */; };
 /* End PBXBuildFile section */
 
@@ -36,6 +37,7 @@
 		8BA912B0245CCA4F00C9A683 /* GoftamIMKInputController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoftamIMKInputController.swift; sourceTree = "<group>"; };
 		8BB14F43246D9E8800D0F6B6 /* GoftamBypassIcon.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = GoftamBypassIcon.tif; sourceTree = "<group>"; };
 		8BBBB08B2463C76F00C1C1FF /* PersianGoftamTransliterator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersianGoftamTransliterator.swift; sourceTree = "<group>"; };
+		8BC92BD4246F273500D171C4 /* GoftamWordStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoftamWordStore.swift; sourceTree = "<group>"; };
 		8BC92BD6246F345B00D171C4 /* goftam.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = goftam.sqlite; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -87,6 +89,7 @@
 			isa = PBXGroup;
 			children = (
 				8BA9129E245CC84D00C9A683 /* AppDelegate.swift */,
+				8BC92BD4246F273500D171C4 /* GoftamWordStore.swift */,
 				8BA912B0245CCA4F00C9A683 /* GoftamIMKInputController.swift */,
 				8B49FC4B2469FDB700B08771 /* GoftamTransliterator.swift */,
 				8BBBB08B2463C76F00C1C1FF /* PersianGoftamTransliterator.swift */,
@@ -194,6 +197,7 @@
 				8BA912B1245CCA4F00C9A683 /* GoftamIMKInputController.swift in Sources */,
 				8B49FC4C2469FDB700B08771 /* GoftamTransliterator.swift in Sources */,
 				8B29B25824670A2000A051AE /* GoftamTransliterationEngine.swift in Sources */,
+				8BC92BD5246F273500D171C4 /* GoftamWordStore.swift in Sources */,
 				8BA9129F245CC84D00C9A683 /* AppDelegate.swift in Sources */,
 				8BBBB08C2463C76F00C1C1FF /* PersianGoftamTransliterator.swift in Sources */,
 			);

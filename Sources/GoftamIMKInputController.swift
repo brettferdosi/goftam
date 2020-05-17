@@ -30,13 +30,13 @@ class GoftamIMKInputController: IMKInputController {
 
     // called when the client loses focus
     override func deactivateServer(_ sender: Any!) {
-        goftamLog("client \(String(describing: sender))")
+        goftamLog(logLevel: .VERBOSE, "client \(String(describing: sender))")
         commitComposition(sender)
     }
 
     // called when the client gains focus
     override func activateServer(_ sender: Any!) {
-        goftamLog("client \(String(describing: sender))")
+        goftamLog(logLevel: .VERBOSE, "client \(String(describing: sender))")
         // the user may have been changing keyboard layouts while we were deactivated
         // (but the controller survives so init() may not be called again).
         // goftam will use the most recent ASCII capable keyboard layout to translate key
@@ -46,9 +46,11 @@ class GoftamIMKInputController: IMKInputController {
         candidatesWindow.setSelectionKeysKeylayout(lastASCIIlayout)
     }
 
-    // called when an input mode is selected
+    // called when an input mode is selected; the input mode's
+    // identifier (from ComponentInputModeDict in Info.plist) is the
+    // value and kTextServiceInputModePropertyTag is the tag
     override func setValue(_ value: Any!, forTag tag: Int, client sender: Any!) {
-        goftamLog("value \(String(describing: value)) tag \(tag)")
+        goftamLog(logLevel: .VERBOSE, "value \(String(describing: value)) tag \(tag)")
         if tag == kTextServiceInputModePropertyTag {
             commitComposition(sender)
             selectTransliterator(value as! String)
@@ -110,7 +112,7 @@ class GoftamIMKInputController: IMKInputController {
 
     // commit the current transliteration
     override func commitComposition(_ sender: Any!) {
-        goftamLog("composed string \(String(describing: self._composedString))")
+        goftamLog(logLevel: .VERBOSE, "composed string \(String(describing: self._composedString))")
 
         writeTextToClient(downcastSender(sender), self._composedString)
 
@@ -123,13 +125,13 @@ class GoftamIMKInputController: IMKInputController {
 
     // update mark/candidates for the current transliteration
     override func updateComposition() {
-        goftamLog("original string \(String(describing: self._originalString))")
+        goftamLog(logLevel: .VERBOSE, "original string \(String(describing: self._originalString))")
 
         writeMarkToClient(downcastSender(self.client()), _originalString)
 
-        self._candidates = goftamTransliterator.generateCandidates(_originalString)
+        self._candidates = activeTransliterator.generateCandidates(_originalString)
 
-        self._composedString = _candidates[0]
+        self._composedString = self._candidates.count > 0 ? self._candidates[0] : ""
 
         if self._originalString.count == 0 {
             candidatesWindow.hide()
@@ -143,7 +145,7 @@ class GoftamIMKInputController: IMKInputController {
 
     // cancel the current transliteration
     override func cancelComposition() {
-        goftamLog("")
+        goftamLog(logLevel: .VERBOSE, "")
 
         writeMarkToClient(downcastSender(self.client()), "")
 
@@ -158,13 +160,14 @@ class GoftamIMKInputController: IMKInputController {
 
     // user highlighted a selection
     override func candidateSelectionChanged(_ candidateString: NSAttributedString!) {
-        goftamLog("selection \(String(describing: candidateString))")
+        goftamLog(logLevel: .VERBOSE, "selection \(String(describing: candidateString))")
         self._composedString = candidateString.string
     }
 
     // user made a selection
     override func candidateSelected(_ candidateString: NSAttributedString!) {
-        goftamLog("selection \(String(describing: candidateString))")
+        goftamLog(logLevel: .VERBOSE, "selection \(String(describing: candidateString))")
+        activeTransliterator.wordSelected(word: candidateString.string)
         self._composedString = candidateString.string
         commitComposition(self.client())
         writeTextToClient(downcastSender(self.client()), " ")
@@ -172,17 +175,9 @@ class GoftamIMKInputController: IMKInputController {
 
     // input from client
 
-    // indicate that we support handling more than keypresses - not needed so far
-//    override func recognizedEvents(_ sender: Any!) -> Int {
-//        goftamLog("")
-//        //let events: NSEvent.EventTypeMask = [.any]
-//        let events: NSEvent.EventTypeMask = [.keyDown, .flagsChanged, .leftMouseDown, .rightMouseDown, .otherMouseDown]
-//        return Int(truncatingIfNeeded: events.rawValue)
-//    }
-
     // handle user actions
     override func handle(_ event: NSEvent!, client sender: Any!) -> Bool {
-        goftamLog("event \(String(describing: event))")
+        goftamLog(logLevel: .VERBOSE, "event \(String(describing: event))")
         switch event.type {
         case .keyDown: return handleKeyDown(event, downcastSender(sender))
         default: return false
@@ -201,7 +196,16 @@ class GoftamIMKInputController: IMKInputController {
 
         // shift-command-space toggles transliteration bypass
         if ((char == " ") && event.modifierFlags.contains([.shift, .command])) {
-            toggleBypass(sender)
+            // sender.selectMode() will call :selectValue() above with
+            // the appropriate tag. if either the bypass input mode
+            // or the main language input modes are not loaded, then
+            // this design will fail gracefully because selectMode()
+            // will not result in a :selectValue() call.
+            if bypassTransliteration {
+                sender.selectMode(type(of: activeTransliterator).transliteratorName)
+            } else {
+                sender.selectMode(bypassTransliteratorName)
+            }
             return true
         }
 
@@ -249,15 +253,15 @@ class GoftamIMKInputController: IMKInputController {
         // is not handled by the candidates window
 
         // a recognized character either starts or continues the composition
-        if (goftamTransliterator.recognizedCharacters().contains(char)) {
+        if (activeTransliterator.recognizedCharacters().contains(char)) {
             self._originalString.append(char)
             updateComposition()
             return true
 
         // recognized digits are translated immediately (there is guaranteed
         // not to be an active composition in this case)
-        } else if (goftamTransliterator.digitMap().keys.contains(char)) {
-            writeTextToClient(sender, String(goftamTransliterator.digitMap()[char]!))
+        } else if (activeTransliterator.digitMap().keys.contains(char)) {
+            writeTextToClient(sender, String(activeTransliterator.digitMap()[char]!))
             return true
 
         // keys that are not recognized specifically cause an in-progress

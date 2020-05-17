@@ -11,53 +11,55 @@ import InputMethodKit
 
 // global scope
 
-// only need one candidates window for the entire input method because
-// only one such window should be visible at a time
+// only need one candidates window for the entire input method
+// because only one such window should be visible at a time
 var candidatesWindow: IMKCandidates = IMKCandidates()
+var wordStore: GoftamWordStore = GoftamWordStore()
 
-// the transliterator to use and whether or not to
-// bypass it are global options, even though changes
-// are made from particular GoftamIMKInputController objects
-var goftamTransliterator: GoftamTransliterator = PersianGoftamTransliterator()
-// identifier for the transliterator's input mode, from Info.plist
-var goftamTransliteratorName: String = "goftampersian"
+// transliterator selection and control
+
+// mapping from input mode names (from ComponentInputModeDict
+// in Info.plist) to transliterator objects
+var transliterators: Dictionary<String, GoftamTransliterator> =
+    [PersianGoftamTransliterator.transliteratorName: PersianGoftamTransliterator()]
+
+// BFG: different default behavior when more languages added?
+var activeTransliterator: GoftamTransliterator =
+    transliterators[PersianGoftamTransliterator.transliteratorName]!
+
+// bypass control
 var bypassTransliteration: Bool = false
-
-// :selectMode() will call GoftamIMKInputController:setValue(),
-// which in turn will call selectTransliterator() below and
-// change the bypass boolean appropraitely. if either the bypass
-// input mode or the main language input modes are not loaded,
-// this design will fail gracefully because :selectMode() will not
-// cause :setValue() to be called.
-func toggleBypass(_ client: (IMKTextInput & IMKUnicodeTextInput)) {
-    if (bypassTransliteration) {
-        // switch to the non-bypassed version of the current input mode
-        client.selectMode(goftamTransliteratorName)
-    } else {
-        // switch to the bypass input mode
-        client.selectMode("goftambypass")
-    }
-}
+var bypassTransliteratorName: String = "goftambypass"
 
 // select the transliterator to use (or enable bypass mode) by
 // its input mode name (from ComponentInputModeDict in Info.plist)
 func selectTransliterator(_ mode: String) {
-    goftamLog("mode \(mode)")
-    switch mode {
-    case "goftambypass":
+    goftamLog(logLevel: .VERBOSE, "mode \(mode)")
+    if mode == bypassTransliteratorName {
         bypassTransliteration = true
-    case "goftampersian":
+    } else {
+        guard let transliterator = transliterators[mode] else {
+            goftamLog("invalid transliterator selected")
+            abort()
+        }
         bypassTransliteration = false
-        goftamTransliterator = PersianGoftamTransliterator()
-        goftamTransliteratorName = "goftampersian"
-    default:
-        goftamLog("invalid transliterator selected")
-        abort()
+        activeTransliterator = transliterator
     }
 }
 
-func goftamLog(_ format: String, caller: String = #function, args: CVarArg...) {
-    NSLog("goftam: \(caller) " + format, args)
+// logging
+
+enum GoftamLogLevel: Int {
+    case VERBOSE = 0
+    case ALWAYS_PRINT
+}
+let currentGoftamLogLevel: GoftamLogLevel = .ALWAYS_PRINT
+func goftamLog(logLevel: GoftamLogLevel = .ALWAYS_PRINT, _ format: String,
+               file: String = #file, caller: String = #function, args: CVarArg...) {
+    if (logLevel.rawValue >= currentGoftamLogLevel.rawValue) {
+        let fileName = file.components(separatedBy: "/").last ?? ""
+        NSLog("\(fileName):\(caller) " + format, args)
+    }
 }
 
 // app delegate

@@ -23,16 +23,19 @@ and enter the symbol.
 If you want to write bypassed and non-bypassed text in the same line, add a
 space after your bypassed text before going back into non-bypass mode
 
+## how to install it
+
+for uninstall, remove the app and also database in ~/Library/Application Support/blah 
+
+## how it works
+
 ## adding a language
-- add a class that implements the GoftamTransliterator protocol, optionally using (1) transliteration rules and the GoftamTransliterationEngine class and (2) a sqlite dictionary/user history table. See PersianGoftamTransliterator for an example.
+- add a class that implements the GoftamTransliterator protocol, optionally using (1) transliteration rules and the GoftamTransliterationEngine class and (2) a sqlite dictionary/user history table using the GoftamWordStore class. See PersianGoftamTransliterator for an example.
 - create an input mode for the language by adding entries to tsInputModeListKey and tsVisibleInputModeOrderedArrayKey in ComponentInputModeDict in Info.plist
-- add a case to the selectTransliterator() function in AppDelegate.swift for your new translator and input
+- add a mapping to the transliterators dictionary in AppDelegate.swift for your new transliterator and input method
+- note that when you modify the database you should delete your application support directory
 
 TODO
-- add a dictionary pass to prioritize real words
-- use Artifical Intelligence Machine Learning Big Data technology to improve
-  candidate suggestions
 - add a timeout for long searches
 - punctuation map
 - build string
-- debug levels
