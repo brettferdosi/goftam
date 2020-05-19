@@ -38,7 +38,6 @@ for uninstall, remove the app and also database in ~/Library/Application Support
 TODO
 - add a timeout for long searches
 - punctuation map
-- build string
-- build versions and packaging
+- packaging (homebrew?)
 - main icon, dark mode menu bar icons
 - fix the readme

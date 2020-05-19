@@ -68,7 +68,11 @@ func goftamLog(logLevel: GoftamLogLevel = .ALWAYS_PRINT, _ format: String,
 class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        goftamLog("")
+        let version: String =
+            Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? ""
+        let buildNumber: String =
+            Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? ""
+        goftamLog("version \(version) (\(buildNumber))")
 
         // no matter what Info.plist and goftam.entitlements say, the connection name
         // requested from the sandbox seems to be $(PRODUCT_BUNDLE_IDENTIFIER)_Connection,
