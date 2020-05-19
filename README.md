@@ -36,8 +36,9 @@ for uninstall, remove the app and also database in ~/Library/Application Support
 - note that when you modify the database you should delete your application support directory
 
 TODO
-- add a timeout for long searches
 - punctuation map
+- review rules
 - packaging (homebrew?)
 - main icon, dark mode menu bar icons
 - fix the readme
+- based on usage patterns and effectiveness of the existing method, investigate more efficient / useful ways of generating and validating persian candidates

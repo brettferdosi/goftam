@@ -12,21 +12,23 @@ class GoftamIMKInputController: IMKInputController {
 
     // fields and constructor
 
-    static let escapeCharacter: Int = 0x1b // int corresponding to Unicode value of escape
-    static let ZWNJCharacter: Int = 0x200c // int correspoding to Unicode value of ZWNJ
-    static let digitChars: Set<Character> = ["0", "1", "2" ,"3", "4", "5", "6", "7", "8", "9"]
+    private static let escapeCharacter: Int = 0x1b // int corresponding to Unicode value of escape
+    private static let ZWNJCharacter: Int = 0x200c // int correspoding to Unicode value of ZWNJ
+    private static let digitChars: Set<Character> = ["0", "1", "2" ,"3", "4", "5", "6", "7", "8", "9"]
+    private static let candidatesTimeoutSeconds: Double = 0.05 // how many seconds to allow for generating candidates
 
-    var _originalString: String = "" // what the user typed
-    var _composedString: String = "" // currently selected transliteration candidate
-    var _candidates: [String] = [] // list of candidates to choose from
+    private var _originalString: String = "" // what the user typed
+    private var _composedString: String = "" // currently selected transliteration candidate
+    private var _candidates: [String] = [] // list of candidates to choose from
+    private var _candidatesTimeoutInput : String = "" // input that caused generating candidates to time out
+
+    // handle system events
 
     // called once per client the first time it gets focus
     override init!(server: IMKServer!, delegate: Any!, client inputClient: Any!) {
         goftamLog(logLevel: .VERBOSE, "client \(String(describing: inputClient))")
         super.init(server: server, delegate: delegate, client: inputClient)
     }
-
-    // handle system events
 
     // called when the client loses focus
     override func deactivateServer(_ sender: Any!) {
@@ -71,12 +73,12 @@ class GoftamIMKInputController: IMKInputController {
         return menu
     }
 
-    @objc func clearHistory(_ sender: Any) {
+    @objc private func clearHistory(_ sender: Any) {
         goftamLog(logLevel: .VERBOSE, "")
         wordStore.clearHistory(usingTable: type(of: activeTransliterator).transliteratorName)
     }
 
-    @objc func showAboutPanel(_ sender: Any) {
+    @objc private func showAboutPanel(_ sender: Any) {
         goftamLog(logLevel: .VERBOSE, "")
 
         let github = NSMutableAttributedString(string: "https://github.com/brettferdosi/goftam")
@@ -128,12 +130,12 @@ class GoftamIMKInputController: IMKInputController {
     // helper functions
 
     // convert Int representing a Unicode character to a Character
-    func toChar(_ unicodeInt: Int) -> Character {
+    private func toChar(_ unicodeInt: Int) -> Character {
         return Character(UnicodeScalar(unicodeInt) ?? UnicodeScalar(0))
     }
 
     // handle deficiencies in the swift API: untyped senders should cast successfully
-    func downcastSender(_ sender: Any!) -> (IMKTextInput & IMKUnicodeTextInput) {
+    private func downcastSender(_ sender: Any!) -> (IMKTextInput & IMKUnicodeTextInput) {
         guard let downcast = sender as? (IMKTextInput & IMKUnicodeTextInput) else {
             goftamLog("sender \(String(describing: sender)) did not downcast, trying client()")
             return client() as! (IMKTextInput & IMKUnicodeTextInput)
@@ -142,14 +144,14 @@ class GoftamIMKInputController: IMKInputController {
     }
 
     // insert marked text at the cursor
-    func writeMarkToClient(_ client: (IMKTextInput & IMKUnicodeTextInput),_ string: String) {
+    private func writeMarkToClient(_ client: (IMKTextInput & IMKUnicodeTextInput),_ string: String) {
         client.setMarkedText(string,
                              selectionRange: NSMakeRange(0, string.count),
                              replacementRange: NSMakeRange(NSNotFound, NSNotFound))
     }
 
     // insert text at the cursor, overwriting marked text that may be there
-    func writeTextToClient(_ client: (IMKTextInput & IMKUnicodeTextInput),_ string: String) {
+    private func writeTextToClient(_ client: (IMKTextInput & IMKUnicodeTextInput),_ string: String) {
         client.insertText(string, replacementRange: NSMakeRange(NSNotFound, NSNotFound))
     }
 
@@ -164,21 +166,53 @@ class GoftamIMKInputController: IMKInputController {
         self._originalString = ""
         self._composedString = ""
         self._candidates = []
+        self._candidatesTimeoutInput = ""
 
         candidatesWindow.hide()
     }
 
     // update mark/candidates for the current transliteration
     override func updateComposition() {
-        goftamLog(logLevel: .VERBOSE, "original string \(String(describing: self._originalString))")
+        goftamLog(logLevel: .VERBOSE, "original string \(self._originalString))")
 
-        writeMarkToClient(downcastSender(self.client()), _originalString)
+        writeMarkToClient(downcastSender(self.client()), self._originalString)
 
-        self._candidates = activeTransliterator.generateCandidates(_originalString)
+        // if some previous input string caused generating the candidates to time out,
+        // then the list of candidates will be frozen until the present input string
+        // becomes shorter than the offending one (which means the user has deleted
+        // some characters) or until the composition is committed or cancelled.
+        // the marked text continues to update while the candidates list is frozen.
+        if self._candidatesTimeoutInput != "" {
+            if self._originalString.count < self._candidatesTimeoutInput.count {
+                self._candidatesTimeoutInput = ""
+            } else {
+                return
+            }
+        }
+
+        // generate candidates asynchronously and write them to a captured local variable,
+        // waiting in the main thread for the operation to finish. if the operation times out,
+        // then do not use its result and instead freeze the candidates window as described above.
+        var candidates: [String] = []
+
+        let work = DispatchWorkItem(block: {
+            candidates = activeTransliterator.generateCandidates(self._originalString)
+        })
+        DispatchQueue.global(qos: .userInitiated).async(execute: work)
+
+        let result = work.wait(wallTimeout: (DispatchWallTime.now() + GoftamIMKInputController.candidatesTimeoutSeconds))
+        if result == .timedOut {
+            goftamLog("generating candidates for \(self._originalString) using \(activeTransliterator) timed out")
+            work.cancel() // this does not actually preempt the work
+            self._candidatesTimeoutInput = self._originalString
+            return
+        }
+
+        self._candidates = candidates
 
         self._composedString = self._candidates.count > 0 ? self._candidates[0] : ""
 
-        if self._originalString.count == 0 {
+        if self._candidates.count == 0 {
             candidatesWindow.hide()
         } else {
             candidatesWindow.update()
@@ -197,6 +231,7 @@ class GoftamIMKInputController: IMKInputController {
         self._originalString = ""
         self._composedString = ""
         self._candidates = []
+        self._candidatesTimeoutInput = ""
 
         candidatesWindow.hide()
     }
@@ -230,7 +265,7 @@ class GoftamIMKInputController: IMKInputController {
     }
 
     // handle user keypress
-    func handleKeyDown(_ event: NSEvent, _ sender: (IMKTextInput & IMKUnicodeTextInput)) -> Bool {
+    private func handleKeyDown(_ event: NSEvent, _ sender: (IMKTextInput & IMKUnicodeTextInput)) -> Bool {
         // goftamLog("")
         let charcount = event.characters?.count
         if charcount != 1 {
