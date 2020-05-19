@@ -22,7 +22,7 @@ class GoftamIMKInputController: IMKInputController {
 
     // called once per client the first time it gets focus
     override init!(server: IMKServer!, delegate: Any!, client inputClient: Any!) {
-        goftamLog("client \(String(describing: inputClient))")
+        goftamLog(logLevel: .VERBOSE, "client \(String(describing: inputClient))")
         super.init(server: server, delegate: delegate, client: inputClient)
     }
 
@@ -58,6 +58,51 @@ class GoftamIMKInputController: IMKInputController {
             goftamLog("unhandled tag \(tag)")
             super.setValue(value, forTag: tag, client: sender)
         }
+    }
+
+    // generate inputmethod menu and handle user clicks
+    override func menu() -> NSMenu! {
+        goftamLog(logLevel: .VERBOSE, "")
+        let menu = NSMenu()
+        if !bypassTransliteration {
+            menu.addItem(NSMenuItem(title: "Clear History", action: #selector(clearHistory(_:)), keyEquivalent: ""))
+        }
+        menu.addItem(NSMenuItem(title: "About", action: #selector(showAboutPanel(_:)), keyEquivalent: "")) // todo build id
+        return menu
+    }
+
+    @objc func clearHistory(_ sender: Any) {
+        goftamLog(logLevel: .VERBOSE, "")
+        wordStore.clearHistory(usingTable: type(of: activeTransliterator).transliteratorName)
+    }
+
+    @objc func showAboutPanel(_ sender: Any) {
+        goftamLog(logLevel: .VERBOSE, "")
+
+        let github = NSMutableAttributedString(string: "https://github.com/brettferdosi/goftam")
+        github.addAttribute(.link, value: "https://github.com/brettferdosi/goftam",
+                            range: NSRange(location: 0, length: github.length))
+
+        let website = NSMutableAttributedString(string: "https://brett.gutste.in")
+        website.addAttribute(.link, value: "https://brett.gutste.in",
+                             range: NSRange(location: 0, length: website.length))
+
+        let credits = NSMutableAttributedString(string:"")
+        credits.append(github)
+        credits.append(NSMutableAttributedString(string: "\n"))
+        credits.append(website)
+
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = .center
+        credits.addAttribute(.paragraphStyle, value: paragraphStyle,
+                             range: NSRange(location: 0, length: credits.length))
+
+        // setting the activation policy and calling activate() doesn't
+        // make our app visible on the dock or make a blank window appear,
+        // but it allows our about panel to display in front of other apps
+        NSApp.setActivationPolicy(.accessory)
+        NSApp.activate(ignoringOtherApps: true)
+        NSApp.orderFrontStandardAboutPanel(options: [ .credits : credits ])
     }
 
     // getters

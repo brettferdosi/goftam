@@ -1,2 +1,4 @@
 goftampersian = "Goftam Persian";
 goftambypass = "Goftam Bypass";
+
+CFBundleName = "Goftam";

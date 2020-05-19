@@ -39,3 +39,6 @@ TODO
 - add a timeout for long searches
 - punctuation map
 - build string
+- build versions and packaging
+- main icon, dark mode menu bar icons
+- fix the readme
