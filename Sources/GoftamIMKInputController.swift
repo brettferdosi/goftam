@@ -293,6 +293,11 @@ class GoftamIMKInputController: IMKInputController {
             return false
         }
 
+        // if a command sequence was not handled by the application, ignore it
+        if event.modifierFlags.contains(.command) {
+            return false
+        }
+
         // shift-space maps to ZWNJ for all languages; ends in-progress composition
         if ((char == " ") && event.modifierFlags.contains(.shift)) {
             commitComposition(sender)

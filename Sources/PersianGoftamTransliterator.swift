@@ -31,10 +31,30 @@ class PersianGoftamTransliterator: GoftamTransliterator {
     // rule map inputs should only contain recognized characters;
     // priority order of rules for the same input characters affects transliteration
     private let _rules: [GoftamTransliterationRule] = [
-        GoftamTransliterationRule([.beginning, .middle, .end], "khaa", "خوا"),
-        GoftamTransliterationRule([.beginning, .middle, .end], "kha", "خوا"),
-        GoftamTransliterationRule([.beginning, .middle, .end], "xaa", "خوا"),
-        GoftamTransliterationRule([.beginning, .middle, .end], "xa", "خوا"),
+        // BFG: reduce rule list size by eliminating redundancy? e.g. kh and x or u and oo
+
+        GoftamTransliterationRule([.end], "ye", "ی"),
+        // dictionary words don't have hamze
+        GoftamTransliterationRule([.end], "eye", "هٔ"),
+        GoftamTransliterationRule([.end], "aye", "هٔ"), // is this useful?
+        GoftamTransliterationRule([.end], "oye", "هٔ"), // is this useful?
+
+        GoftamTransliterationRule([.end], "ei", "ه‌ای"),
+        GoftamTransliterationRule([.end], "ii", "ی‌ای"),
+        GoftamTransliterationRule([.end], "ai", "ه‌ای"), // is this useful?
+        GoftamTransliterationRule([.end], "oi", "ه‌ای"), // is this useful?
+        // dictionary words don't have hamze
+        GoftamTransliterationRule([.end], "ai", "ائی"),
+        GoftamTransliterationRule([.end], "aai", "ائی"),
+        GoftamTransliterationRule([.end], "ui", "وئی"),
+        GoftamTransliterationRule([.end], "ooi", "وئی"),
+
+        GoftamTransliterationRule([.end], "eha", "ه‌ها"),
+        GoftamTransliterationRule([.end], "ehaa", "ه‌ها"),
+        GoftamTransliterationRule([.end], "aha", "ه‌ها"), // is this useful?
+        GoftamTransliterationRule([.end], "ahaa", "ه‌ها"), // is this useful?
+        GoftamTransliterationRule([.end], "oha", "ه‌ها"), // is this useful?
+        GoftamTransliterationRule([.end], "ohaa", "ه‌ها"), // is this useful?
 
         GoftamTransliterationRule([.beginning], "aa", "آ"),
         GoftamTransliterationRule([.middle, .end], "aa", "ا"),
@@ -47,22 +67,22 @@ class PersianGoftamTransliterator: GoftamTransliterator {
         GoftamTransliterationRule([.beginning], "oo", "او"),
         GoftamTransliterationRule([.middle, .end], "oo", "و"),
         GoftamTransliterationRule([.end], "an", "اً"),
-        GoftamTransliterationRule([.end], "ye", "ی"),
 
         GoftamTransliterationRule([.beginning], "a", "ا"),
         GoftamTransliterationRule([.middle, .end], "a", ""),
-        GoftamTransliterationRule([.beginning], "a", "آ"), // ? maybe remove
-        GoftamTransliterationRule([.middle, .end], "a", "ا"), // ? maybe remove
-        GoftamTransliterationRule([.beginning], "a", "ع"), // ? maybe remove, maybe beginning and middle
+        GoftamTransliterationRule([.beginning], "a", "آ"),
+        GoftamTransliterationRule([.middle, .end], "a", "ا"),
+        GoftamTransliterationRule([.end], "a", "ه"),
+        GoftamTransliterationRule([.beginning, .middle, .end], "a", "ع"), // is .end useful?
 
         GoftamTransliterationRule([.beginning, .middle, .end], "b", "ب"),
         GoftamTransliterationRule([.beginning, .middle, .end], "c", "ک"),
         GoftamTransliterationRule([.beginning, .middle, .end], "d", "د"),
 
         GoftamTransliterationRule([.beginning], "e", "ا"),
-        GoftamTransliterationRule([.middle], "e", ""),
+        GoftamTransliterationRule([.middle], "e", ""), // adding .end to support ezafe makes results worse
         GoftamTransliterationRule([.end], "e", "ه"),
-        GoftamTransliterationRule([.beginning], "e", "ع"), // ? maybe remove, maybe beginning and middle
+        GoftamTransliterationRule([.beginning, .middle, .end], "e", "ع"), // is .end useful?
 
         GoftamTransliterationRule([.beginning, .middle, .end], "f", "ف"),
         GoftamTransliterationRule([.beginning, .middle, .end], "g", "گ"),
@@ -80,9 +100,9 @@ class PersianGoftamTransliterator: GoftamTransliterator {
 
         GoftamTransliterationRule([.beginning], "o", "ا"),
         GoftamTransliterationRule([.middle, .end], "o", ""),
-        //GoftamTransliterationRule([.beginning], "o", "او"), // ? maybe remove
-        GoftamTransliterationRule([.middle, .end], "o", "و"), // ? maybe remove or expand
-        GoftamTransliterationRule([.beginning], "o", "ع"), // ? maybe remove, maybe beginning and middle
+        GoftamTransliterationRule([.beginning, .middle, .end], "o", "و"),
+        GoftamTransliterationRule([.end], "o", "ه"),
+        GoftamTransliterationRule([.beginning, .middle, .end], "o", "ع"), // is .end useful?
 
         GoftamTransliterationRule([.beginning, .middle, .end], "p", "پ"),
 
@@ -111,6 +131,11 @@ class PersianGoftamTransliterator: GoftamTransliterator {
         GoftamTransliterationRule([.beginning, .middle, .end], "z", "ض"),
 
         GoftamTransliterationRule([.beginning, .middle, .end], "'", "ع"),
+
+        GoftamTransliterationRule([.beginning, .middle, .end], "khaa", "خوا"),
+        GoftamTransliterationRule([.beginning, .middle, .end], "kha", "خوا"),
+        GoftamTransliterationRule([.beginning, .middle, .end], "xaa", "خوا"),
+        GoftamTransliterationRule([.beginning, .middle, .end], "xa", "خوا"),
     ]
 
     private let _transliterator: GoftamTransliterationEngine

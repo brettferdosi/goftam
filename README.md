@@ -23,6 +23,12 @@ and enter the symbol.
 If you want to write bypassed and non-bypassed text in the same line, add a
 space after your bypassed text before going back into non-bypass mode
 
+### persian specifically
+
+you can use more specific rules to get better reults (for example, a maps to both alef and nothing and eyn but aa maps only to alef. similarly for ow vs o)
+
+for prefixes and suffixes, you can use ZWNJ; some transliteration rules have been added as shortcuts for representing ezafe, indefinite marker suffixes, and plural suffixes
+
 ## how to install it
 
 for uninstall, remove the app and also database in ~/Library/Application Support/blah 
@@ -37,8 +43,7 @@ for uninstall, remove the app and also database in ~/Library/Application Support
 
 TODO
 - punctuation map
-- review rules
 - packaging (homebrew?)
 - main icon, dark mode menu bar icons
 - fix the readme
-- based on usage patterns and effectiveness of the existing method, investigate more efficient / useful ways of generating and validating persian candidates
+- investigate better ways to generate candidates (dictionary in trie, prune using dictionary while generating; map roman characters to the chosen transliteration rather than counting the times a transliterated word is selected)
