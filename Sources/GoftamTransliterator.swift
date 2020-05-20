@@ -10,9 +10,11 @@ protocol GoftamTransliterator {
     // should be the identifier from the transliterator's input mode from Info.plist
     static var transliteratorName: String { get }
 
+    func punctuationMap() -> Dictionary<Character, Character>
     func digitMap() -> Dictionary<Character, Character>
     // the set returned by recognizedCharacters() should
-    // not contain digits as recognized by digitMap()
+    // not contain characters recognized by digitMap()
+    // or punctuationMap()
     func recognizedCharacters() -> Set<Character>
     // input to generateCandidates() should only contain
     // characters recognized by recognizedCharacters()

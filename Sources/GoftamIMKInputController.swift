@@ -275,7 +275,7 @@ class GoftamIMKInputController: IMKInputController {
         let char = event.characters!.first!
 
         // shift-command-space toggles transliteration bypass
-        if ((char == " ") && event.modifierFlags.contains([.shift, .command])) {
+        if (char == " ") && event.modifierFlags.contains([.shift, .command]) {
             // sender.selectMode() will call :selectValue() above with
             // the appropriate tag. if either the bypass input mode
             // or the main language input modes are not loaded, then
@@ -289,7 +289,7 @@ class GoftamIMKInputController: IMKInputController {
             return true
         }
 
-        if (bypassTransliteration) {
+        if bypassTransliteration {
             return false
         }
 
@@ -299,7 +299,7 @@ class GoftamIMKInputController: IMKInputController {
         }
 
         // shift-space maps to ZWNJ for all languages; ends in-progress composition
-        if ((char == " ") && event.modifierFlags.contains(.shift)) {
+        if (char == " ") && event.modifierFlags.contains(.shift) {
             commitComposition(sender)
             writeTextToClient(sender, String(toChar(GoftamIMKInputController.ZWNJCharacter)))
             return true
@@ -338,15 +338,20 @@ class GoftamIMKInputController: IMKInputController {
         // is not handled by the candidates window
 
         // a recognized character either starts or continues the composition
-        if (activeTransliterator.recognizedCharacters().contains(char)) {
+        if activeTransliterator.recognizedCharacters().contains(char) {
             self._originalString.append(char)
             updateComposition()
             return true
 
         // recognized digits are translated immediately (there is guaranteed
         // not to be an active composition in this case)
-        } else if (activeTransliterator.digitMap().keys.contains(char)) {
+        } else if activeTransliterator.digitMap().keys.contains(char) {
             writeTextToClient(sender, String(activeTransliterator.digitMap()[char]!))
+            return true
+
+        } else if activeTransliterator.punctuationMap().keys.contains(char) {
+            commitComposition(sender)
+            writeTextToClient(sender, String(activeTransliterator.punctuationMap()[char]!))
             return true
 
         // keys that are not recognized specifically cause an in-progress

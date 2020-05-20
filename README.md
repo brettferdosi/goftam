@@ -42,7 +42,6 @@ for uninstall, remove the app and also database in ~/Library/Application Support
 - note that when you modify the database you should delete your application support directory
 
 TODO
-- punctuation map
 - packaging (homebrew?)
 - main icon, dark mode menu bar icons
 - fix the readme

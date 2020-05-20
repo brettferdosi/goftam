@@ -8,6 +8,14 @@
 
 class PersianGoftamTransliterator: GoftamTransliterator {
 
+    private let _punctuationMap: Dictionary<Character, Character> = [
+        "," : "،",
+        ";" : "؛",
+        "?" : "؟",
+        "<" : "»",
+        ">" : "«"
+    ]
+
     private let _digitMap: Dictionary<Character, Character> = [
         "0" : "۰",
         "1" : "۱",
@@ -149,6 +157,10 @@ class PersianGoftamTransliterator: GoftamTransliterator {
 
     func recognizedCharacters() -> Set<Character> {
         return self._recognizedCharacters
+    }
+
+    func punctuationMap() -> Dictionary<Character, Character> {
+        return self._punctuationMap
     }
 
     func digitMap() -> Dictionary<Character, Character> {
