@@ -45,7 +45,7 @@
 	<key>TISIntendedLanguage</key>
 	<string>en</string>
 	<key>tsInputMethodIconFileKey</key>
-	<string>GoftamIcon.tif</string>
+	<string>AppIcon</string>
 	<key>ComponentInputModeDict</key>
 	<dict>
 		<key>tsInputModeListKey</key>
@@ -59,9 +59,9 @@
 				<key>tsInputModeScriptKey</key>
 				<string>smArabic</string>
 				<key>tsInputModeMenuIconFileKey</key>
-				<string>GoftamIcon.tif</string>
+				<string>PersianMenuIcon</string>
 				<key>tsInputModeAlternateMenuIconFileKey</key>
-				<string>GoftamIcon.tif</string>
+				<string>PersianMenuIcon</string>
 				<key>tsInputModeDefaultStateKey</key>
 				<true/>
 				<key>tsInputModeIsVisibleKey</key>
@@ -76,9 +76,9 @@
 				<key>tsInputModeScriptKey</key>
 				<string>smRoman</string>
 				<key>tsInputModeMenuIconFileKey</key>
-				<string>GoftamBypassIcon.tif</string>
+				<string>BypassMenuIcon</string>
 				<key>tsInputModeAlternateMenuIconFileKey</key>
-				<string>GoftamBypassIcon.tif</string>
+				<string>BypassMenuIcon</string>
 				<key>tsInputModeDefaultStateKey</key>
 				<true/>
 				<key>tsInputModeIsVisibleKey</key>

@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8B21E63B245DFDB4008B802F /* GoftamIcon.tif in Resources */ = {isa = PBXBuildFile; fileRef = 8B21E63A245DF961008B802F /* GoftamIcon.tif */; };
 		8B29B25824670A2000A051AE /* GoftamTransliterationEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B29B25724670A2000A051AE /* GoftamTransliterationEngine.swift */; };
 		8B49FC4C2469FDB700B08771 /* GoftamTransliterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B49FC4B2469FDB700B08771 /* GoftamTransliterator.swift */; };
 		8B523E79246DB8DB00B4A04C /* Base.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 8B523E78246DB8DB00B4A04C /* Base.lproj */; };
@@ -16,7 +15,6 @@
 		8BA9129F245CC84D00C9A683 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA9129E245CC84D00C9A683 /* AppDelegate.swift */; };
 		8BA912A1245CC85000C9A683 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BA912A0245CC85000C9A683 /* Assets.xcassets */; };
 		8BA912B1245CCA4F00C9A683 /* GoftamIMKInputController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA912B0245CCA4F00C9A683 /* GoftamIMKInputController.swift */; };
-		8BB14F44246D9E8800D0F6B6 /* GoftamBypassIcon.tif in Resources */ = {isa = PBXBuildFile; fileRef = 8BB14F43246D9E8800D0F6B6 /* GoftamBypassIcon.tif */; };
 		8BBBB08C2463C76F00C1C1FF /* PersianGoftamTransliterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BBBB08B2463C76F00C1C1FF /* PersianGoftamTransliterator.swift */; };
 		8BC92BD5246F273500D171C4 /* GoftamWordStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC92BD4246F273500D171C4 /* GoftamWordStore.swift */; };
 		8BC92BD7246F345B00D171C4 /* goftam.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 8BC92BD6246F345B00D171C4 /* goftam.sqlite */; };
@@ -24,7 +22,6 @@
 
 /* Begin PBXFileReference section */
 		8B21E639245D45FA008B802F /* goftam.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = goftam.entitlements; sourceTree = "<group>"; };
-		8B21E63A245DF961008B802F /* GoftamIcon.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = GoftamIcon.tif; sourceTree = "<group>"; };
 		8B29B25724670A2000A051AE /* GoftamTransliterationEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoftamTransliterationEngine.swift; sourceTree = "<group>"; };
 		8B49FC4B2469FDB700B08771 /* GoftamTransliterator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoftamTransliterator.swift; sourceTree = "<group>"; };
 		8B523E78246DB8DB00B4A04C /* Base.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Base.lproj; sourceTree = "<group>"; };
@@ -35,7 +32,6 @@
 		8BA9129E245CC84D00C9A683 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8BA912A0245CC85000C9A683 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8BA912B0245CCA4F00C9A683 /* GoftamIMKInputController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoftamIMKInputController.swift; sourceTree = "<group>"; };
-		8BB14F43246D9E8800D0F6B6 /* GoftamBypassIcon.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = GoftamBypassIcon.tif; sourceTree = "<group>"; };
 		8BBBB08B2463C76F00C1C1FF /* PersianGoftamTransliterator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersianGoftamTransliterator.swift; sourceTree = "<group>"; };
 		8BC92BD4246F273500D171C4 /* GoftamWordStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoftamWordStore.swift; sourceTree = "<group>"; };
 		8BC92BD6246F345B00D171C4 /* goftam.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = goftam.sqlite; sourceTree = "<group>"; };
@@ -59,8 +55,6 @@
 				8B21E639245D45FA008B802F /* goftam.entitlements */,
 				8B523E7E246DB93B00B4A04C /* Info.plist */,
 				8B523E78246DB8DB00B4A04C /* Base.lproj */,
-				8B21E63A245DF961008B802F /* GoftamIcon.tif */,
-				8BB14F43246D9E8800D0F6B6 /* GoftamBypassIcon.tif */,
 				8BA912A0245CC85000C9A683 /* Assets.xcassets */,
 			);
 			path = Resources;
@@ -160,10 +154,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				8B523E7D246DB90200B4A04C /* README.md in Resources */,
-				8B21E63B245DFDB4008B802F /* GoftamIcon.tif in Resources */,
 				8BA912A1245CC85000C9A683 /* Assets.xcassets in Resources */,
 				8B523E79246DB8DB00B4A04C /* Base.lproj in Resources */,
-				8BB14F44246D9E8800D0F6B6 /* GoftamBypassIcon.tif in Resources */,
 				8BC92BD7246F345B00D171C4 /* goftam.sqlite in Resources */,
 				8B523E7C246DB90200B4A04C /* LICENSE in Resources */,
 			);
