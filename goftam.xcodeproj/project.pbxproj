@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 53;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -12,6 +12,7 @@
 		8B523E79246DB8DB00B4A04C /* Base.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 8B523E78246DB8DB00B4A04C /* Base.lproj */; };
 		8B523E7C246DB90200B4A04C /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 8B523E7A246DB90100B4A04C /* LICENSE */; };
 		8B523E7D246DB90200B4A04C /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 8B523E7B246DB90200B4A04C /* README.md */; };
+		8B558A2D247705AE00F627F3 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B558A2C2477059600F627F3 /* MainMenu.xib */; };
 		8BA9129F245CC84D00C9A683 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA9129E245CC84D00C9A683 /* AppDelegate.swift */; };
 		8BA912A1245CC85000C9A683 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BA912A0245CC85000C9A683 /* Assets.xcassets */; };
 		8BA912B1245CCA4F00C9A683 /* GoftamIMKInputController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA912B0245CCA4F00C9A683 /* GoftamIMKInputController.swift */; };
@@ -28,6 +29,7 @@
 		8B523E7A246DB90100B4A04C /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		8B523E7B246DB90200B4A04C /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		8B523E7E246DB93B00B4A04C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8B558A2C2477059600F627F3 /* MainMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
 		8BA9129B245CC84D00C9A683 /* goftam.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = goftam.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BA9129E245CC84D00C9A683 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8BA912A0245CC85000C9A683 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -52,6 +54,7 @@
 			isa = PBXGroup;
 			children = (
 				8BC92BD6246F345B00D171C4 /* goftam.sqlite */,
+				8B558A2C2477059600F627F3 /* MainMenu.xib */,
 				8B21E639245D45FA008B802F /* goftam.entitlements */,
 				8B523E7E246DB93B00B4A04C /* Info.plist */,
 				8B523E78246DB8DB00B4A04C /* Base.lproj */,
@@ -121,6 +124,7 @@
 		8BA91293245CC84D00C9A683 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1130;
 				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = "Brett Gutstein";
@@ -153,6 +157,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B558A2D247705AE00F627F3 /* MainMenu.xib in Resources */,
 				8B523E7D246DB90200B4A04C /* README.md in Resources */,
 				8BA912A1245CC85000C9A683 /* Assets.xcassets in Resources */,
 				8B523E79246DB8DB00B4A04C /* Base.lproj in Resources */,
@@ -180,7 +185,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "echo \"Moving Input Method Kit app to Input Methods directory.\"\nkillall -9 ${EXECUTABLE_NAME}\ncp -R \"${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}\" \"${HOME}/Library/Input Methods\"\n";
+			shellScript = "# only install this way when developing\nif [ \"${CONFIGURATION}\" == \"Debug\" ]; then\n    DEST=\"${HOME}/Library/Input Methods\"\n    echo \"Installing Goftam into ${DEST}\"\n    killall -9 \"${EXECUTABLE_NAME}\"\n    cp -R \"${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}\" \"${DEST}\"\nfi\n";
 		};
 		8B562AE524744139005AC1BE /* Force Rebuild (Workaround 41254808) */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -202,13 +207,14 @@
 		};
 		8B94E62924739A4700E56568 /* Set Build Version and Number */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			files = (
 			);
 			inputFileListPaths = (
 			);
 			inputPaths = (
 				"$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+				"$(INSTALL_DIR)/$(INFOPLIST_PATH)",
 			);
 			name = "Set Build Version and Number";
 			outputFileListPaths = (
@@ -217,7 +223,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "BUILD_NUMBER=$(git rev-list HEAD --count)\nBUILD_VERSION=$(git describe --tags --always --dirty)\n\nPLIST=\"${BUILT_PRODUCTS_DIR}/${INFOPLIST_PATH}\"\n\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $BUILD_NUMBER\" \"${PLIST}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleShortVersionString ${BUILD_VERSION#*v}\" \"${PLIST}\"\n";
+			shellScript = "BUILD_NUMBER=$(git rev-list HEAD --count)\nBUILD_VERSION=$(git describe --tags --always --dirty)\nPLIST=\"\"\n\n# handle archiving\nif [ \"${ACTION}\" == \"install\" ]; then\n    PLIST=\"${INSTALL_DIR}/${INFOPLIST_PATH}\"\nelse\n    PLIST=\"${BUILT_PRODUCTS_DIR}/${INFOPLIST_PATH}\"\nfi\n\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $BUILD_NUMBER\" \"${PLIST}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleShortVersionString ${BUILD_VERSION#*v}\" \"${PLIST}\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

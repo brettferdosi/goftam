@@ -42,7 +42,4 @@ for uninstall, remove the app and also database in ~/Library/Application Support
 - note that when you modify the database you should delete your application support directory
 
 TODO
-- packaging (homebrew?)
-- main icon, dark mode menu bar icons
 - fix the readme
-- investigate better ways to generate candidates (dictionary in trie, prune using dictionary while generating; map roman characters to the chosen transliteration rather than counting the times a transliterated word is selected)

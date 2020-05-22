@@ -6,6 +6,11 @@
 //  Copyright © 2020 Brett Gutstein. All rights reserved.
 //
 
+// BFG: investigate better ways to generate candidates
+// (store dictionary in trie, prune using dictionary while
+// generating; map roman characters to the chosen
+// transliteration rather than counting the times a
+// transliterated word is selected)
 class PersianGoftamTransliterator: GoftamTransliterator {
 
     private let _punctuationMap: Dictionary<Character, Character> = [
