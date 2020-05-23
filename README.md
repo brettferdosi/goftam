@@ -1,9 +1,10 @@
-![logo]()
+<img src="https://github.com/brettferdosi/goftam/raw/doc/icon.png" width="150px">
+
 # Goftam
 
 Goftam is a transliterating input method for macOS. It allows you to type in different scripts with your usual keyboard layout, which may be much faster than learning additional keyboard layouts.
 
-![gif]()
+<img src="https://github.com/brettferdosi/goftam/raw/doc/demo.gif" width="650px">
 
 Currently, only Persian is supported, but it is straightforward to add other languages and scripts. Goftam has been tested on macOS 10.15 Catalina but may also work on other versions. 
 
@@ -13,7 +14,7 @@ Currently, only Persian is supported, but it is straightforward to add other lan
 
 **Install option 1: run the installer**
 
-Download the most recent installer from the [releases](https://github.com/brettferdosi/goftam/releases) and run it. You will have to follow Apple's instructions for [opening an app from an unidentified developer](https://support.apple.com/guide/mac-help/open-a-mac-app-from-an-unidentified-developer-mh40616/mac). It will install Goftam for all users, but you can move `goftam.app` to a particular user's directory after installation if desired. If there is already a version of `goftam.app` on your system, the installer will detect and overwrite it.
+Download the most recent installer from [releases](https://github.com/brettferdosi/goftam/releases) and run it. You will have to follow Apple's instructions for [opening an app from an unidentified developer](https://support.apple.com/guide/mac-help/open-a-mac-app-from-an-unidentified-developer-mh40616/mac). It will install Goftam for all users, but you can move `goftam.app` to a particular user's directory after installation if desired. If there is already a version of `goftam.app` on your system, the installer will detect and overwrite it.
 
 **Install option 2: build from source**
 
@@ -23,7 +24,7 @@ Clone this git repository and run `xcodebuild -project goftam.xcodeproj`. `gofta
 
 Open System Preferences > Keyboard and click the + button to add input sources. Add Goftam Bypass, which is categorized as an English input method, and additional Goftam inputs as desired, which are categorized by their target languages (e.g. Goftam Persian is categorized as a Persian input method). You can then enable Goftam inputs by selecting them from the input menu bar button.
 
-![menubar]()
+<img src="https://github.com/brettferdosi/goftam/raw/doc/menubar.png" width="500px">
 
 If selecting one of the Goftam input methods does not work immediately after installing it, you may need to log out then back in.
 
