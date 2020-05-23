@@ -34,11 +34,11 @@ To remove Goftam from your system completely, delete `goftam.app` from wherever 
 
 ## Using Goftam
 
-With a Goftam input enabled, the input keyboard layout is set to the most recently used ASCII-capable layout (in many cases, this will be the keyboard layout of your computer's physical keyboard that you are used to). All inputted text is transliterated into the target language and script. Typing starts a transliteration composition, and transliteration candidates are displayed in a window underneath the composition. When you are ready to commit a composition, you can choose a candidate from the window using the arrow keys and enter, the mouse, or the number keys corresponding to the nubmers next to the candidates. Escape cancels the in-progress composition.
+With a Goftam input enabled, the input keyboard layout is set to the most recently used ASCII-capable layout (in many cases, this will be the keyboard layout of your computer's physical keyboard that you are used to). All inputted text is transliterated into the target language and script. Typing starts a transliteration composition, and transliteration candidates are displayed in a window underneath the composition. When you are ready to commit a composition, you can choose a candidate from the window using the arrow and enter keys, the mouse, or number keys corresponding to the nubmers next to the candidates. The escape key cancels the in-progress composition.
 
-Typing a punctuation mark or symbol commits the in-progress composition, selecting the currently highlighted candidate, then inserts the (potentially translated) symbol. Typing a numeric digit while there is no composition in progress inserts a translated version of the digit.
+Typing a punctuation mark or symbol commits the in-progress composition by selecting the currently highlighted candidate, and the (potentially translated) symbol is then inserted. Typing a numeric digit while there is no composition in progress inserts a translated version of the digit.
 
-Goftam supports a bypass mode that inputs keystrokes directly, without transliteration. Press `shift-commmand-space`  while you have a text box selected to toggle transliteration bypass. In bypass mode, the Goftam icon in the menu bar becomes faded.
+Goftam supports a bypass mode that inputs keystrokes directly without transliteration. Press `shift-commmand-space`  while you have a text box selected to toggle transliteration bypass. In bypass mode, the Goftam icon in the menu bar becomes faded.
 
 In non-bypass input modes, typing `shift-space` will insert a [zero-width non-joiner character](https://en.wikipedia.org/wiki/Zero-width_non-joiner), which is useful for various scripts and languages.
 
