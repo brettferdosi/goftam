@@ -1,45 +1,60 @@
-# goftam
+![logo]()
+# Goftam
 
-Work in progress transliterating input method for macOS. Currently Persian is
-supported, but it is relatively straightforward to add other languages and
-scripts.
+Goftam is a transliterating input method for macOS. It allows you to type in different scripts with your usual keyboard layout, which may be much faster than learning additional keyboard layouts.
 
-## how to use it
+![gif]()
 
-The default input keyboard layout is set to the most recently used
-ASCII-capable keyboard layout. Shift-space inserts a ZWNJ. Command-shift-space
-bypasses transliteration.
+Currently, only Persian is supported, but it is straightforward to add other languages and scripts. Goftam has been tested on macOS 10.15 Catalina but may also work on other versions. 
 
-Advanced usage: making a selection with numbers adds a space afterwards,
-whereas typing a symbol while a selection is highlighted makes the selection
-and inserts the symbol. For efficiency, do the following. If the word is in the
-middle of a sentence (i.e., its translation will be followed by a space), then
-if the first suggestion is the desired transliteration you can simply hit
-space; otherwise select with the number keys. If the word needs to be followed
-by a symbol, like a period or a ZWNJ, highlight the selection using the arrow
-keys then enter the symbol; or make the selection with number keys, backspace,
-and enter the symbol.
+## Installing and enabling Goftam
 
-If you want to write bypassed and non-bypassed text in the same line, add a
-space after your bypassed text before going back into non-bypass mode
+`goftam.app` must be placed in `/Library/Input Methods` to install it for all users or `~/Library/Input Methods` to install it for a particular user.
 
-### persian specifically
+**Install option 1: run the installer**
 
-you can use more specific rules to get better reults (for example, a maps to both alef and nothing and eyn but aa maps only to alef. similarly for ow vs o)
+Download the most recent installer from the [releases](https://github.com/brettferdosi/goftam/releases) and run it. You will have to follow Apple's instructions for [opening an app from an unidentified developer](https://support.apple.com/guide/mac-help/open-a-mac-app-from-an-unidentified-developer-mh40616/mac). It will install Goftam for all users, but you can move `goftam.app` to a particular user's directory after installation if desired. If there is already a version of `goftam.app` on your system, the installer will detect and overwrite it.
 
-for prefixes and suffixes, you can use ZWNJ; some transliteration rules have been added as shortcuts for representing ezafe, indefinite marker suffixes, and plural suffixes
+**Install option 2: build from source**
 
-## how to install it
+Clone this git repository and run `xcodebuild -project goftam.xcodeproj`. `goftam.app` will be placed into `build/Release`, and you can move it to the appropriate directory depending on whether you want to install Goftam for all users or a particular user.
 
-for uninstall, remove the app and also database in ~/Library/Application Support/blah 
+**Enabling Goftam**
 
-## how it works
+Open System Preferences > Keyboard and click the + button to add input sources. Add Goftam Bypass, which is categorized as an English input method, and additional Goftam inputs as desired, which are categorized by their target languages (e.g. Goftam Persian is categorized as a Persian input method). You can then enable Goftam inputs by selecting them from the input menu bar button.
 
-## adding a language
-- add a class that implements the GoftamTransliterator protocol, optionally using (1) transliteration rules and the GoftamTransliterationEngine class and (2) a sqlite dictionary/user history table using the GoftamWordStore class. See PersianGoftamTransliterator for an example.
-- create an input mode for the language by adding entries to tsInputModeListKey and tsVisibleInputModeOrderedArrayKey in ComponentInputModeDict in Info.plist
-- add a mapping to the transliterators dictionary in AppDelegate.swift for your new transliterator and input method
-- note that when you modify the database you should delete your application support directory
+![menubar]()
 
-TODO
-- fix the readme
+If selecting one of the Goftam input methods does not work immediately after installing it, you may need to log out then back in.
+
+**Uninstalling Goftam**
+
+To remove Goftam from your system completely, delete `goftam.app` from wherever you installed it and also delete the directory `~/Library/Application Support/in.gutste.inputmethod.goftam` for all users that had Goftam enabled.
+
+## Using Goftam
+
+With a Goftam input enabled, the input keyboard layout is set to the most recently used ASCII-capable layout (in many cases, this will be the keyboard layout of your computer's physical keyboard that you are used to). All inputted text is transliterated into the target language and script. Typing starts a transliteration composition, and transliteration candidates are displayed in a window underneath the composition. When you are ready to commit a composition, you can choose a candidate from the window using the arrow keys and enter, the mouse, or the number keys corresponding to the nubmers next to the candidates. Escape cancels the in-progress composition.
+
+Typing a punctuation mark or symbol commits the in-progress composition, selecting the currently highlighted candidate, then inserts the (potentially translated) symbol. Typing a numeric digit while there is no composition in progress inserts a translated version of the digit.
+
+Goftam supports a bypass mode that inputs keystrokes directly, without transliteration. Press `shift-commmand-space` to toggle transliteration bypass. In bypass mode, the Goftam icon in the menu bar becomes faded.
+
+In non-bypass input modes, typing `shift-space` will insert a [zero-width non-joiner character](https://en.wikipedia.org/wiki/Zero-width_non-joiner), which is useful for various scripts and languages.
+
+## Goftam Persian
+
+Goftam Persian works by applying transliteration rules in priority order to generate candidates for a given input string. Of those candidates, ones that have been previously selected by the user or that are determined to be valid Persian words are moved to the top of the list.
+
+Because transliteration rules are applied in priority order to generate candidates, you can target specific rules to make a desired candidate appear closer to the top of the list. For example, a rule mapping character "a" to an empty string ("") is applied before one that matches it to alef ("ا"), but the two-character sequence "aa" maps to alef before the empty string. With no saved user history, the string "baradar" yields بردار before برادر, but "baraadar" yields برادر before بردار.
+
+To render prefixes and suffixes, you can type `shift-space` to insert a zero-width non-joiner. Some transliteration rules have been added to represent ezafe as hamza and to enable shortcuts for indefinite marker and plural suffixes. All of the transliteration rules can be found in `Sources/PersianGoftamTransliterator.swift`
+
+## Adding a language
+
+You can add a lanaguage/script to Goftam by taking the following steps:
+
+1. Create a class that implements the `GoftamTransliterator` protocol. You can optionally use transliteration rules and the `GoftamTransliterationEngine` class to generate candidates and the `GoftamWordStore` class to store a list of recognized words and user selection history (note that to test your work, you should delete Goftam's Application Support directory after modifying the SQLite database underlying `GoftamWordStore`). See `PersianGoftamTransliterator` for an example.
+
+2. Create an input mode for the language by adding entries to `tsInputModeListKey` and `tsVisibleInputModeOrderedArrayKey` in `ComponentInputModeDict` in `Resources/Info.plist`.
+
+3. Add a mapping to the `transliterators` Dictionary in `Sources/AppDelegate.swift` for your new transliterator and input method.
