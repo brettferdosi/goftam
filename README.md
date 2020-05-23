@@ -38,7 +38,7 @@ With a Goftam input enabled, the input keyboard layout is set to the most recent
 
 Typing a punctuation mark or symbol commits the in-progress composition, selecting the currently highlighted candidate, then inserts the (potentially translated) symbol. Typing a numeric digit while there is no composition in progress inserts a translated version of the digit.
 
-Goftam supports a bypass mode that inputs keystrokes directly, without transliteration. Press `shift-commmand-space` to toggle transliteration bypass. In bypass mode, the Goftam icon in the menu bar becomes faded.
+Goftam supports a bypass mode that inputs keystrokes directly, without transliteration. Press `shift-commmand-space`  while you have a text box selected to toggle transliteration bypass. In bypass mode, the Goftam icon in the menu bar becomes faded.
 
 In non-bypass input modes, typing `shift-space` will insert a [zero-width non-joiner character](https://en.wikipedia.org/wiki/Zero-width_non-joiner), which is useful for various scripts and languages.
 
@@ -48,7 +48,7 @@ Goftam Persian works by applying transliteration rules in priority order to gene
 
 Because transliteration rules are applied in priority order to generate candidates, you can target specific rules to make a desired candidate appear closer to the top of the list. For example, a rule mapping character "a" to an empty string ("") is applied before one that matches it to alef ("ا"), but the two-character sequence "aa" maps to alef before the empty string. With no saved user history, the string "baradar" yields بردار before برادر, but "baraadar" yields برادر before بردار.
 
-To render prefixes and suffixes, you can type `shift-space` to insert a zero-width non-joiner. Some transliteration rules have been added to represent ezafe as hamza and to enable shortcuts for indefinite marker and plural suffixes. All of the transliteration rules can be found in `Sources/PersianGoftamTransliterator.swift`
+To render prefixes and suffixes, you can type `shift-space` to insert a zero-width non-joiner. Some transliteration rules have been added to enable shortcuts for certain suffixes. All of the transliteration rules can be found in `Sources/PersianGoftamTransliterator.swift`
 
 ## Adding a language
 

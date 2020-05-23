@@ -46,29 +46,6 @@ class PersianGoftamTransliterator: GoftamTransliterator {
     private let _rules: [GoftamTransliterationRule] = [
         // BFG: reduce rule list size by eliminating redundancy? e.g. kh and x or u and oo
 
-        GoftamTransliterationRule([.end], "ye", "ی"),
-        // dictionary words don't have hamze
-        GoftamTransliterationRule([.end], "eye", "هٔ"),
-        GoftamTransliterationRule([.end], "aye", "هٔ"), // is this useful?
-        GoftamTransliterationRule([.end], "oye", "هٔ"), // is this useful?
-
-        GoftamTransliterationRule([.end], "ei", "ه‌ای"),
-        GoftamTransliterationRule([.end], "ii", "ی‌ای"),
-        GoftamTransliterationRule([.end], "ai", "ه‌ای"), // is this useful?
-        GoftamTransliterationRule([.end], "oi", "ه‌ای"), // is this useful?
-        // dictionary words don't have hamze
-        GoftamTransliterationRule([.end], "ai", "ائی"),
-        GoftamTransliterationRule([.end], "aai", "ائی"),
-        GoftamTransliterationRule([.end], "ui", "وئی"),
-        GoftamTransliterationRule([.end], "ooi", "وئی"),
-
-        GoftamTransliterationRule([.end], "eha", "ه‌ها"),
-        GoftamTransliterationRule([.end], "ehaa", "ه‌ها"),
-        GoftamTransliterationRule([.end], "aha", "ه‌ها"), // is this useful?
-        GoftamTransliterationRule([.end], "ahaa", "ه‌ها"), // is this useful?
-        GoftamTransliterationRule([.end], "oha", "ه‌ها"), // is this useful?
-        GoftamTransliterationRule([.end], "ohaa", "ه‌ها"), // is this useful?
-
         GoftamTransliterationRule([.beginning], "aa", "آ"),
         GoftamTransliterationRule([.middle, .end], "aa", "ا"),
         GoftamTransliterationRule([.beginning, .middle, .end], "ch", "چ"),
@@ -149,6 +126,30 @@ class PersianGoftamTransliterator: GoftamTransliterator {
         GoftamTransliterationRule([.beginning, .middle, .end], "kha", "خوا"),
         GoftamTransliterationRule([.beginning, .middle, .end], "xaa", "خوا"),
         GoftamTransliterationRule([.beginning, .middle, .end], "xa", "خوا"),
+        
+        GoftamTransliterationRule([.end], "ye", "ی"),
+        // dictionary words don't have hamze
+        GoftamTransliterationRule([.end], "eye", "هٔ"),
+        GoftamTransliterationRule([.end], "aye", "هٔ"), // is this useful?
+        GoftamTransliterationRule([.end], "oye", "هٔ"), // is this useful?
+
+        GoftamTransliterationRule([.end], "ei", "ه‌ای"),
+        GoftamTransliterationRule([.end], "ii", "ی‌ای"),
+        GoftamTransliterationRule([.end], "ai", "ه‌ای"), // is this useful?
+        GoftamTransliterationRule([.end], "oi", "ه‌ای"), // is this useful?
+        // dictionary words don't have hamze
+        GoftamTransliterationRule([.end], "ai", "ائی"),
+        GoftamTransliterationRule([.end], "aai", "ائی"),
+        GoftamTransliterationRule([.end], "ui", "وئی"),
+        GoftamTransliterationRule([.end], "ooi", "وئی"),
+
+        GoftamTransliterationRule([.end], "eha", "ه‌ها"),
+        GoftamTransliterationRule([.end], "ehaa", "ه‌ها"),
+        GoftamTransliterationRule([.end], "aha", "ه‌ها"), // is this useful?
+        GoftamTransliterationRule([.end], "ahaa", "ه‌ها"), // is this useful?
+        GoftamTransliterationRule([.end], "oha", "ه‌ها"), // is this useful?
+        GoftamTransliterationRule([.end], "ohaa", "ه‌ها"), // is this useful?
+
     ]
 
     private let _transliterator: GoftamTransliterationEngine
