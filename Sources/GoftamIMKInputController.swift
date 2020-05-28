@@ -66,10 +66,8 @@ class GoftamIMKInputController: IMKInputController {
     override func menu() -> NSMenu! {
         goftamLog(logLevel: .VERBOSE, "")
         let menu = NSMenu()
-        if !bypassTransliteration {
-            menu.addItem(NSMenuItem(title: "Clear History", action: #selector(clearHistory(_:)), keyEquivalent: ""))
-        }
-        menu.addItem(NSMenuItem(title: "About", action: #selector(showAboutPanel(_:)), keyEquivalent: "")) // todo build id
+        menu.addItem(NSMenuItem(title: "Clear History", action: #selector(clearHistory(_:)), keyEquivalent: ""))
+        menu.addItem(NSMenuItem(title: "About", action: #selector(showAboutPanel(_:)), keyEquivalent: ""))
         return menu
     }
 
@@ -273,25 +271,6 @@ class GoftamIMKInputController: IMKInputController {
             return false
         }
         let char = event.characters!.first!
-
-        // shift-command-space toggles transliteration bypass
-        if (char == " ") && event.modifierFlags.contains([.shift, .command]) {
-            // sender.selectMode() will call :selectValue() above with
-            // the appropriate tag. if either the bypass input mode
-            // or the main language input modes are not loaded, then
-            // this design will fail gracefully because selectMode()
-            // will not result in a :selectValue() call.
-            if bypassTransliteration {
-                sender.selectMode(type(of: activeTransliterator).transliteratorName)
-            } else {
-                sender.selectMode(bypassTransliteratorName)
-            }
-            return true
-        }
-
-        if bypassTransliteration {
-            return false
-        }
 
         // if a command sequence was not handled by the application, ignore it
         if event.modifierFlags.contains(.command) {

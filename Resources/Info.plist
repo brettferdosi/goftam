@@ -67,28 +67,10 @@
 				<key>tsInputModeIsVisibleKey</key>
 				<true/>
 			</dict>
-			<key>goftambypass</key>
-			<dict>
-				<key>TISIntendedLanguage</key>
-				<string>en</string>
-				<key>TISInputSourceID</key>
-				<string>$(PRODUCT_BUNDLE_IDENTIFIER).bypass</string>
-				<key>tsInputModeScriptKey</key>
-				<string>smRoman</string>
-				<key>tsInputModeMenuIconFileKey</key>
-				<string>BypassMenuIcon</string>
-				<key>tsInputModeAlternateMenuIconFileKey</key>
-				<string>BypassMenuIcon</string>
-				<key>tsInputModeDefaultStateKey</key>
-				<true/>
-				<key>tsInputModeIsVisibleKey</key>
-				<true/>
-			</dict>
 		</dict>
 		<key>tsVisibleInputModeOrderedArrayKey</key>
 		<array>
 			<string>goftampersian</string>
-			<string>goftambypass</string>
 		</array>
 	</dict>
 	<key>tsInputMethodCharacterRepertoireKey</key>

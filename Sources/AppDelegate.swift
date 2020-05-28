@@ -23,28 +23,18 @@ var wordStore: GoftamWordStore = GoftamWordStore()
 var transliterators: Dictionary<String, GoftamTransliterator> =
     [PersianGoftamTransliterator.transliteratorName: PersianGoftamTransliterator()]
 
-// BFG: different default behavior when more languages added?
 var activeTransliterator: GoftamTransliterator =
     transliterators[PersianGoftamTransliterator.transliteratorName]!
 
-// bypass control
-var bypassTransliteration: Bool = false
-var bypassTransliteratorName: String = "goftambypass"
-
-// select the transliterator to use (or enable bypass mode) by
-// its input mode name (from ComponentInputModeDict in Info.plist)
+// select the transliterator to use by its input mode
+// name (from ComponentInputModeDict in Info.plist)
 func selectTransliterator(_ mode: String) {
     goftamLog(logLevel: .VERBOSE, "mode \(mode)")
-    if mode == bypassTransliteratorName {
-        bypassTransliteration = true
-    } else {
-        guard let transliterator = transliterators[mode] else {
-            goftamLog("invalid transliterator selected")
-            abort()
-        }
-        bypassTransliteration = false
-        activeTransliterator = transliterator
+    guard let transliterator = transliterators[mode] else {
+        goftamLog("invalid transliterator selected")
+        abort()
     }
+    activeTransliterator = transliterator
 }
 
 // logging

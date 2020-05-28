@@ -12,7 +12,6 @@
 		8B49FC4C2469FDB700B08771 /* GoftamTransliterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B49FC4B2469FDB700B08771 /* GoftamTransliterator.swift */; };
 		8B523E79246DB8DB00B4A04C /* Base.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 8B523E78246DB8DB00B4A04C /* Base.lproj */; };
 		8B523E7C246DB90200B4A04C /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 8B523E7A246DB90100B4A04C /* LICENSE */; };
-		8B523E7D246DB90200B4A04C /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 8B523E7B246DB90200B4A04C /* README.md */; };
 		8BA9129F245CC84D00C9A683 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA9129E245CC84D00C9A683 /* AppDelegate.swift */; };
 		8BA912A1245CC85000C9A683 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BA912A0245CC85000C9A683 /* Assets.xcassets */; };
 		8BA912B1245CCA4F00C9A683 /* GoftamIMKInputController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA912B0245CCA4F00C9A683 /* GoftamIMKInputController.swift */; };
@@ -160,7 +159,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8B47A60624798B39004A391C /* MainMenu.xib in Resources */,
-				8B523E7D246DB90200B4A04C /* README.md in Resources */,
 				8BA912A1245CC85000C9A683 /* Assets.xcassets in Resources */,
 				8B523E79246DB8DB00B4A04C /* Base.lproj in Resources */,
 				8BC92BD7246F345B00D171C4 /* goftam.sqlite in Resources */,
