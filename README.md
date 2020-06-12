@@ -14,7 +14,7 @@ Currently, only Persian is supported, but it is straightforward to add other lan
 
 **Install option 1: run the installer (easiset)**
 
-Download the most recent installer (`GoftamInstaller.pkg`) from [releases](https://github.com/brettferdosi/goftam/releases) and run it. You will have to follow Apple's instructions for [opening an app from an unidentified developer](https://support.apple.com/guide/mac-help/open-a-mac-app-from-an-unidentified-developer-mh40616/mac) (basically, control-click the installer, click *Open*, then click *Open* again). It will install Goftam for all users, but you can move `goftam.app` to a particular user's directory after installation if desired. If there is already a version of `goftam.app` on your system, the installer will detect and overwrite it.
+Download the most recent installer (`GoftamInstaller.pkg`) from [releases](https://github.com/brettferdosi/goftam/releases) and run it (click [here](https://github.com/brettferdosi/goftam/releases/latest/download/GoftamInstaller.pkg) to download directly). You will have to follow Apple's instructions for [opening an app from an unidentified developer](https://support.apple.com/guide/mac-help/open-a-mac-app-from-an-unidentified-developer-mh40616/mac) (basically, control-click the installer, click *Open*, then click *Open* again). It will install Goftam for all users, but you can move `goftam.app` to a particular user's directory after installation if desired. If there is already a version of `goftam.app` on your system, the installer will detect and overwrite it.
 
 **Install option 2: build from source**
 
