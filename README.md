@@ -6,23 +6,33 @@ Goftam is a transliterating input method for macOS. It allows you to type in dif
 
 <img src="https://github.com/brettferdosi/goftam/raw/doc/demo.gif" width="650px">
 
-Currently, only Persian is supported, but it is straightforward to add other languages and scripts. Goftam has been tested on macOS 10.15 Catalina but may also work on other versions. 
+Currently, only Persian is supported, but it is straightforward to add other languages and scripts. Goftam has been tested on macOS 10.15 Catalina but may also work on other versions.
 
 ## Installing and enabling Goftam
 
 `goftam.app` must be placed in `/Library/Input Methods` to install it for all users or `~/Library/Input Methods` to install it for a particular user.
 
-**Install option 1: run the installer (easiset)**
+**Install option 1: homebrew**
 
-Download the most recent installer (`GoftamInstaller.pkg`) from [releases](https://github.com/brettferdosi/goftam/releases) and run it (click [here](https://github.com/brettferdosi/goftam/releases/latest/download/GoftamInstaller.pkg) to download directly). You will have to follow Apple's instructions for [opening an app from an unidentified developer](https://support.apple.com/guide/mac-help/open-a-mac-app-from-an-unidentified-developer-mh40616/mac) (basically, control-click the installer, click *Open*, then click *Open* again). It will install Goftam for all users, but you can move `goftam.app` to a particular user's directory after installation if desired. If there is already a version of `goftam.app` on your system, the installer will detect and overwrite it.
+Run `brew install --cask --no-quarantine brettferdosi/tap/goftam`. `goftam.app` will be
+installed in `~/Library/Input Methods`.
 
-**Install option 2: build from source**
+**Install option 2: run the installer (easiest for non-technical users)**
 
-Clone this git repository and run `xcodebuild -project goftam.xcodeproj`. `goftam.app` will be placed into `build/Release`, and you can move it to the appropriate directory depending on whether you want to install Goftam for all users or a particular user.
+Download the [most recent installer](https://github.com/brettferdosi/goftam/releases/latest/download/GoftamInstaller.pkg) (`GoftamInstaller.pkg`) from the [releases page](https://github.com/brettferdosi/goftam/releases).
+To run the installer, control-click its icon, click *Open*, then click *Open* again.
+See the [Apple support page](https://support.apple.com/guide/mac-help/open-a-mac-app-from-an-unidentified-developer-mh40616/mac) if the process for running apps from unidentified developers has changed.
+It will install `goftam.app` in `/Library/Input Methods`.
+If there is already a version of `goftam.app` on your system, the installer will detect and overwrite it.
+
+**Install option 3: build from source**
+
+Clone this git repository and run `make` in it.
+`goftam.app` will be placed into `build/Build/Products/Release`.
 
 **Enabling Goftam**
 
-Open System Preferences > Keyboard and click the + button to add input sources. Add Goftam inputs, which are categorized by their target languages (e.g. Goftam Persian is categorized as a Persian input method), as desired. You can then enable Goftam inputs by selecting them from the input menu bar button.
+Open System Settings > Keyboard then click the Edit button next to Input Sources followed by the + button to add input sources. Add Goftam inputs, which are categorized by their target languages (e.g. Goftam Persian is categorized as a Persian input method), as desired. You can then use Goftam inputs by selecting them from the input menu bar button or using your configured shortcut key to cycle through input sources.
 
 <img src="https://github.com/brettferdosi/goftam/raw/doc/menubar.png" width="500px">
 
@@ -34,7 +44,7 @@ To remove Goftam from your system completely, delete `goftam.app` from wherever 
 
 ## Using Goftam
 
-With a Goftam input enabled, the input keyboard layout is set to the most recently used ASCII-capable layout (in many cases, this will be the keyboard layout of your computer's physical keyboard that you are used to). All inputted text is transliterated into the target language and script. Typing starts a transliteration composition, and transliteration candidates are displayed in a window underneath the composition. When you are ready to commit a composition, you can choose a candidate from the window using the arrow and enter keys, the mouse, or number keys corresponding to the nubmers next to the candidates. The escape key cancels the in-progress composition.
+With a Goftam input enabled, the input keyboard layout is set to the most recently used ASCII-capable layout (in many cases, this will be the keyboard layout of your computer's physical keyboard that you are used to). All inputted text is transliterated into the target language and script. Typing starts a transliteration composition, and transliteration candidates are displayed in a window underneath the composition. When you are ready to commit a composition, you can choose a candidate from the window using the arrow and enter keys, the mouse, or number keys corresponding to the numbers next to the candidates. The escape key cancels the in-progress composition.
 
 Typing a punctuation mark or symbol commits the in-progress composition by selecting the currently highlighted candidate, and the (potentially translated) symbol is then inserted. Typing a numeric digit while there is no composition in progress inserts a translated version of the digit.
 
